@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/medium_size">
+
+        <ImageView
+            android:id="@+id/arrow_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/arrow_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:paddingStart="@dimen/medium_plus_size"
+            android:paddingEnd="@dimen/small_size"
+            android:text="@string/settings"
+            android:textColor="@color/text"
+            android:textSize="@dimen/large_text_size" />
+    </LinearLayout>
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_size"
+        android:layout_marginBottom="@dimen/medium_size"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/small_size"
+        android:text="@string/night_theme"
+        android:textColor="@color/text"
+        android:textSize="@dimen/medium_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/small_size"
+        android:paddingTop="@dimen/medium_size"
+        android:paddingBottom="@dimen/medium_size"
+        android:text="@string/share_app"
+        android:textColor="@color/text"
+        android:textSize="@dimen/medium_text_size"
+        app:drawableEndCompat="@drawable/share" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/small_size"
+        android:paddingTop="@dimen/medium_size"
+        android:paddingBottom="@dimen/medium_size"
+        android:text="@string/support"
+        android:textColor="@color/text"
+        android:textSize="@dimen/medium_text_size"
+        app:drawableEndCompat="@drawable/support" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/small_size"
+        android:paddingTop="@dimen/medium_size"
+        android:paddingBottom="@dimen/medium_size"
+        android:text="@string/user_agreement"
+        android:textColor="@color/text"
+        android:textSize="@dimen/medium_text_size"
+        app:drawableEndCompat="@drawable/arrow_forward" />
+
+</LinearLayout>
