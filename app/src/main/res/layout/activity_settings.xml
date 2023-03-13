@@ -30,7 +30,6 @@
             android:textSize="@dimen/large_text_size" />
     </LinearLayout>
 
-
     <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
