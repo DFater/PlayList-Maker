@@ -12,9 +12,9 @@ class SettingsActivity : AppCompatActivity() {
 
         val arrowBack = findViewById<ImageView>(R.id.arrow_back)
 
+
         arrowBack.setOnClickListener {
-            val displayIntent = Intent(this, MainActivity::class.java)
-            startActivity(displayIntent)
+            finish()
         }
     }
 }
