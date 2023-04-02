@@ -1,2 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <style name="main_button_style" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginBottom">@dimen/small_size</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="cornerRadius">@dimen/small_size</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/icon_padding</item>
+        <item name="iconTint">@color/text</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="setting_activity_text_view">
+        <item name="android:layout_marginVertical">@dimen/medium_size</item>
+        <item name="android:paddingHorizontal">@dimen/small_size</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="drawableTint">?attr/colorPrimaryDark</item>
+    </style>
+    <style name="day_night_switch">
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">@dimen/small_size</item>
+        <item name="android:paddingTop">@dimen/large_margin</item>
+        <item name="android:paddingBottom">@dimen/medium_size</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:thumbTint">@color/switch_thumb_selector</item>
+        <item name="android:trackTint">@color/switch_track_selector</item>
+    </style>
+    <style name="upper_bar_text_view">
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:paddingStart">@dimen/medium_plus_size</item>
+        <item name="android:paddingEnd">@dimen/small_size</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+    <style name="search_activity_edit_text">
+        <item name="android:background">@drawable/background</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColorHint">@color/light_grey_for_SVG</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:drawablePadding">@dimen/icon_padding</item>
+    </style>
+</resources>
