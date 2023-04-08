@@ -1,16 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/message"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Search Activity"/>
+        android:padding="@dimen/small_size">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/arrow_search_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/arrow_back" />
+
+        <TextView
+            style="@style/upper_bar_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/search" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/small_size"
+        android:layout_marginTop="@dimen/tiny_size"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/inputEditText"
+            style="@style/search_activity_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/search_for_activity"
+            android:hint="@string/search" />
+
+        <ImageView
+            android:id="@+id/clearIcon"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:layout_marginEnd="@dimen/icon_padding"
+            android:src="@drawable/clear_cross"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>
+
+

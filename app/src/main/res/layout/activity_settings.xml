@@ -4,73 +4,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/medium_size">
+        android:padding="@dimen/small_size">
 
         <ImageView
             android:id="@+id/arrow_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:contentDescription="@string/app_name"
             android:src="@drawable/arrow_back" />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:paddingStart="@dimen/medium_plus_size"
-            android:paddingEnd="@dimen/small_size"
             android:text="@string/settings"
-            android:textColor="@color/text"
-            android:textSize="@dimen/large_text_size" />
+            style="@style/upper_bar_text_view"/>
     </LinearLayout>
 
     <Switch
+        style="@style/day_night_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/medium_size"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/small_size"
         android:text="@string/night_theme"
-        android:textColor="@color/text"
-        android:textSize="@dimen/medium_text_size" />
+ />
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/viewShare"
+        style="@style/setting_activity_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/small_size">
+        android:text="@string/share_app"
+        app:drawableEndCompat="@drawable/share" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/medium_size"
-            android:text="@string/share_app"
-            android:textColor="@color/text"
-            android:textSize="@dimen/medium_text_size"
-            app:drawableEndCompat="@drawable/share" />
+    <TextView
+        android:id="@+id/viewService"
+        style="@style/setting_activity_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/support"
+        app:drawableEndCompat="@drawable/support" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/medium_size"
-            android:text="@string/support"
-            android:textColor="@color/text"
-            android:textSize="@dimen/medium_text_size"
-            app:drawableEndCompat="@drawable/support" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/medium_size"
-            android:text="@string/user_agreement"
-            android:textColor="@color/text"
-            android:textSize="@dimen/medium_text_size"
-            app:drawableEndCompat="@drawable/arrow_forward" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/viewUserAgreement"
+        style="@style/setting_activity_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/user_agreement"
+        app:drawableEndCompat="@drawable/arrow_forward" />
 </LinearLayout>
