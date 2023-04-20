@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trackLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/track_layout"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/track_image"
+        style="@style/track_image_view"
+        android:layout_width="@dimen/track_image_size"
+        android:layout_height="@dimen/track_image_size"
+        android:src="@drawable/no_image" />
+
+    <TextView
+        android:id="@+id/track_name"
+        style="@style/track_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/track_arrow"
+        android:layout_toEndOf="@+id/track_image"
+        tools:text="Smells Like Teen Spirit" />
+
+    <TextView
+        android:id="@+id/actors_name"
+        style="@style/actors_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/track_name"
+        android:layout_toEndOf="@+id/track_image"
+        tools:text="Nirvana" />
+
+    <TextView
+        android:id="@+id/track_point"
+        style="@style/point_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/track_name"
+        android:layout_toEndOf="@+id/actors_name"
+        app:drawableEndCompat="@drawable/point" />
+
+    <TextView
+        android:id="@+id/track_duration"
+        style="@style/track_duration_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/track_name"
+        android:layout_toEndOf="@+id/track_point"
+        tools:text="5:01" />
+
+    <ImageView
+        android:id="@+id/track_arrow"
+        style="@style/track_arrow_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/arrow_forward" />
+
+</RelativeLayout>

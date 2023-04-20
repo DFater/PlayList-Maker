@@ -8,9 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#3772e7</color>
-    <color name="text">#1A1B22</color>
     <color name="light_grey_for_SVG">#AEAFB4</color>
     <color name="black_500">#1A1B22</color>
     <color name="dark_blue">#254b8a</color>
     <color name="light_grey_for_track">#cecfd2</color>
+    <color name="background_search_item">#E6E8E8</color>
 </resources>
