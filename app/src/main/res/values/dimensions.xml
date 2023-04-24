@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="small_size">16dp</dimen>
+    <dimen name="exceptional_size">1dp</dimen>
+    <dimen name="point_size">4dp</dimen>
     <dimen name="tiny_size">8dp</dimen>
+    <dimen name="icon_padding">12dp</dimen>
+    <dimen name="small_size">16dp</dimen>
+    <dimen name="medium_size">20dp</dimen>
+    <dimen name="margin_after_search_bar">24dp</dimen>
+    <dimen name="medium_plus_size">28dp</dimen>
     <dimen name="large_margin">40dp</dimen>
+    <dimen name="track_image_size">44dp</dimen>
+    <dimen name="track_layout">60dp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
     <dimen name="medium_text_size">16sp</dimen>
     <dimen name="large_text_size">22sp</dimen>
-    <dimen name="icon_padding">12dp</dimen>
-    <dimen name="medium_plus_size">28dp</dimen>
-    <dimen name="medium_size">20dp</dimen>
 </resources>
