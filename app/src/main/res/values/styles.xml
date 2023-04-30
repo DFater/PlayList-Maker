@@ -111,4 +111,23 @@
         <item name="android:layout_marginBottom">@dimen/medium_size</item>
         <item name="tint">?attr/colorPrimaryDark</item>
     </style>
+
+    <style name="placeholder_text_view">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/placeholder_notice_text_size</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textFontWeight">400</item>
+    </style>
+
+    <style name="placeHolderButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:backgroundTint">?attr/colorOnPrimary</item>
+        <item name="cornerRadius">@dimen/placeholder_button_radius</item>
+        <item name="android:shadowRadius">0</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
 </resources>
