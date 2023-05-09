@@ -17,5 +17,7 @@
     <string name="refresh">Обновить</string>
     <string name="nothing_found" translatable="false">Нчего не нашлось</string>
     <string name="no_internet" translatable="false"> Проблемы со связью \n\ \n\ Загрузка не удалась.  Проверьте \n\ подключение к интернету</string>
+    <string name="you_search">Вы искали</string>
+    <string name="clear_history">Очистить историю</string>
 </resources>
 

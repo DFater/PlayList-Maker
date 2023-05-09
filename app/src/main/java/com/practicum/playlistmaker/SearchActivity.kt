@@ -1,6 +1,7 @@
 package com.practicum.playlistmaker
 
 import android.app.Activity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.SearchHistory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,17 +30,31 @@ class SearchActivity : AppCompatActivity() {
 
     private val iTunesService = retrofit.create(ITunesApi::class.java)
 
-    private val tracks = ArrayList<Tracks>()
-    private val adapter = TrackAdapter(tracks)
-
 
     private val arrowBack: ImageView by lazy { findViewById(R.id.arrow_search_back) }
     private val inputEditText: EditText by lazy { findViewById(R.id.inputEditText) }
     private val clearButton: ImageView by lazy { findViewById(R.id.clearIcon) }
     private val rvTrack: RecyclerView by lazy { findViewById(R.id.rvTrack) }
     private val placeholderNotice: LinearLayout by lazy { findViewById(R.id.placeholderNotice) }
+    private val textNotice: TextView by lazy { findViewById(R.id.placeholderTextView) }
+    private val imageNotice: ImageView by lazy { findViewById(R.id.placeholderImageView) }
+    private val historyNotice: LinearLayout by lazy { findViewById(R.id.historySearchLinearLayout) }
+    private val rvHistoryTrack: RecyclerView by lazy { findViewById(R.id.rvHistoryTrack) }
+    private val clearHistoryButton: Button by lazy { findViewById(R.id.clearHistoryButton) }
+    private val sharedPreferences: SharedPreferences by lazy {
+        getSharedPreferences(
+            PRACTICUM_PREFERENCES,
+            MODE_PRIVATE
+        )
+    }
 
     private var searchText: String? = ""
+
+    private val tracks = ArrayList<Tracks>()
+    private val searchHistory = SearchHistory()
+    private val adapter = TrackAdapter(tracks) {
+        searchHistory.setTrack(it, sharedPreferences)
+    }
 
     companion object {
         const val SEARCH_TEXT = "SEARCH_TEXT"
@@ -51,6 +67,7 @@ class SearchActivity : AppCompatActivity() {
         arrowBack.setOnClickListener {
             finish()
         }
+
 
         clearButton.setOnClickListener {
             inputEditText.setText("")
@@ -81,6 +98,13 @@ class SearchActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.isVisible = !s.isNullOrEmpty()
+                if (inputEditText.hasFocus() && s?.isEmpty() == true) {
+                    showNotice(NetworkStatus.SUCCESS)
+                    if (!searchHistory.read(sharedPreferences).isEmpty()) historyNotice.visibility =
+                        View.VISIBLE
+                } else {
+                    historyNotice.visibility = View.GONE
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -91,9 +115,21 @@ class SearchActivity : AppCompatActivity() {
 
         rvTrack.adapter = adapter
 
+        inputEditText.setOnFocusChangeListener { view, hasFocus ->
+            historyNotice.visibility =
+                if (hasFocus && inputEditText.text.isEmpty() && !searchHistory.read(
+                        sharedPreferences
+                    ).isEmpty()
+                ) View.VISIBLE else View.GONE
+            rvHistoryTrack.adapter = TrackAdapter(searchHistory.read(sharedPreferences)) {
 
+            }
+        }
+        clearHistoryButton.setOnClickListener {
+            searchHistory.clearTracksHistory(sharedPreferences)
+            historyNotice.visibility = View.GONE
+        }
     }
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -143,8 +179,6 @@ class SearchActivity : AppCompatActivity() {
         val buttonRepeat = findViewById<Button>(R.id.buttonRefresh)
         buttonRepeat.visibility = View.GONE
         placeholderNotice.visibility = View.VISIBLE
-        val textNotice = findViewById<TextView>(R.id.placeholderTextView)
-        val imageNotice = findViewById<ImageView>(R.id.placeholderImageView)
         tracks.clear()
         adapter.notifyDataSetChanged()
         when (status) {
@@ -171,4 +205,8 @@ private interface SimpleTextWatcher : TextWatcher {
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+}
+
+enum class NetworkStatus {
+    SUCCESS, EMPTY, ERROR
 }

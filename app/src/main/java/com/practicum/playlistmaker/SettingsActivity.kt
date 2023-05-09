@@ -1,19 +1,31 @@
 package com.practicum.playlistmaker
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.switchmaterial.SwitchMaterial
+
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        val arrowBack = findViewById<ImageView>(R.id.arrow_back)
-        val viewShare = findViewById<TextView>(R.id.viewShare)
-        val viewService = findViewById<TextView>(R.id.viewService)
-        val viewUserAgreement = findViewById<TextView>(R.id.viewUserAgreement)
+        val arrowBack: ImageView by lazy { findViewById(R.id.arrow_back) }
+        val viewShare: TextView by lazy { findViewById(R.id.viewShare) }
+        val viewService: TextView by lazy { findViewById(R.id.viewService) }
+        val viewUserAgreement: TextView by lazy { findViewById(R.id.viewUserAgreement) }
+
+        val themeSwitcher: SwitchMaterial by lazy { findViewById(R.id.themeSwitcher) }
+
+        themeSwitcher.isChecked = (applicationContext as App).darkTheme
+
+
+        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+            (applicationContext as App).switchTheme(checked)
+        }
 
         arrowBack.setOnClickListener {
             finish()

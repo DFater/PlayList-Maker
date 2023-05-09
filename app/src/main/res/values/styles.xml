@@ -120,7 +120,7 @@
         <item name="android:textFontWeight">400</item>
     </style>
 
-    <style name="placeHolderButton" parent="Widget.MaterialComponents.Button">
+    <style name="placeholder_Button" parent="Widget.MaterialComponents.Button">
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textColor">?attr/colorSecondary</item>
         <item name="android:textSize">@dimen/medium_text_size</item>

@@ -10,4 +10,6 @@
     <string name="support">Support</string>
     <string name="user_agreement">User agreement</string>
     <string name="refresh">refresh</string>
+    <string name="you_search">You search</string>
+    <string name="clear_history">Clear history</string>
 </resources>

@@ -63,8 +63,10 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/margin_after_item"
             android:orientation="vertical"
+            tools:itemCount="10"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/track_item" />
+            tools:listitem="@layout/track_item"
+            android:visibility="visible"/>
 
         <LinearLayout
             android:id="@+id/placeholderNotice"
@@ -88,7 +90,7 @@
 
             <Button
                 android:id="@+id/buttonRefresh"
-                style="@style/placeHolderButton"
+                style="@style/placeholder_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_after_item"
@@ -96,6 +98,47 @@
                 android:visibility="gone" />
 
         </LinearLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/historySearchLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/placeholder_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/search_history_large"
+                    android:layout_marginBottom="@dimen/medium_size"
+                    android:gravity="center"
+                    android:text="@string/you_search" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHistoryTrack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/track_item" />
+
+                <Button
+                    android:id="@+id/clearHistoryButton"
+                    style="@style/placeholder_Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_after_item"
+                    android:text="@string/clear_history" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </FrameLayout>
 </LinearLayout>
 

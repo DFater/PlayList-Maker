@@ -1,3 +1,3 @@
 package com.practicum.playlistmaker
 
-class TracksResponse (val results: ArrayList<Tracks>)
+data class TracksResponse (val results: ArrayList<Tracks>)
