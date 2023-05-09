@@ -6,12 +6,14 @@
     <dimen name="icon_padding">12dp</dimen>
     <dimen name="small_size">16dp</dimen>
     <dimen name="medium_size">20dp</dimen>
-    <dimen name="margin_after_search_bar">24dp</dimen>
+    <dimen name="margin_after_item">24dp</dimen>
     <dimen name="medium_plus_size">28dp</dimen>
     <dimen name="large_margin">40dp</dimen>
     <dimen name="track_image_size">44dp</dimen>
+    <dimen name="placeholder_button_radius">54dp</dimen>
     <dimen name="track_layout">60dp</dimen>
     <dimen name="small_text_size">12sp</dimen>
     <dimen name="medium_text_size">16sp</dimen>
+    <dimen name="placeholder_notice_text_size">20sp</dimen>
     <dimen name="large_text_size">22sp</dimen>
 </resources>
