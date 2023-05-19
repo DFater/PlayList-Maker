@@ -4,9 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,8 +17,7 @@ class SettingsActivity : AppCompatActivity() {
         val viewShare: TextView by lazy { findViewById(R.id.viewShare) }
         val viewService: TextView by lazy { findViewById(R.id.viewService) }
         val viewUserAgreement: TextView by lazy { findViewById(R.id.viewUserAgreement) }
-
-        val themeSwitcher: SwitchMaterial by lazy { findViewById(R.id.themeSwitcher) }
+        val themeSwitcher: Switch by lazy { findViewById(R.id.themeSwitcher) }
 
         themeSwitcher.isChecked = (applicationContext as App).darkTheme
 

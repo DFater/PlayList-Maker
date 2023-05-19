@@ -48,7 +48,7 @@ class SearchActivity : AppCompatActivity() {
         )
     }
 
-    private var searchText: String? = ""
+    private var searchText: String = ""
 
     private val tracks = ArrayList<Tracks>()
     private val searchHistory = SearchHistory()
@@ -64,10 +64,34 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        val simpleTextWatcher = object : SimpleTextWatcher {
+
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                clearButton.isVisible = !s.isNullOrEmpty()
+                if (inputEditText.hasFocus() && s?.isEmpty() == true) {
+                    showNotice(NetworkStatus.SUCCESS)
+                    if (!searchHistory.read(sharedPreferences).isEmpty()) {
+                        historyNotice.visibility =
+                            View.VISIBLE
+                        rvHistoryTrack.adapter =
+                            TrackAdapter(searchHistory.read(sharedPreferences)) {
+                            }
+                    }
+                } else {
+                    historyNotice.visibility = View.GONE
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                searchText = inputEditText.text.toString()
+            }
+        }
+
         arrowBack.setOnClickListener {
             finish()
         }
-
 
         clearButton.setOnClickListener {
             inputEditText.setText("")
@@ -77,6 +101,8 @@ class SearchActivity : AppCompatActivity() {
             val inputMethodManager =
                 getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(inputEditText.windowToken, 0)
+            rvHistoryTrack.adapter = TrackAdapter(searchHistory.read(sharedPreferences)) {
+            }
         }
 
         val buttonRepeat = findViewById<Button>(R.id.buttonRefresh)
@@ -93,33 +119,14 @@ class SearchActivity : AppCompatActivity() {
             false
         }
 
-        val simpleTextWatcher = object : SimpleTextWatcher {
-
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                clearButton.isVisible = !s.isNullOrEmpty()
-                if (inputEditText.hasFocus() && s?.isEmpty() == true) {
-                    showNotice(NetworkStatus.SUCCESS)
-                    if (!searchHistory.read(sharedPreferences).isEmpty()) historyNotice.visibility =
-                        View.VISIBLE
-                } else {
-                    historyNotice.visibility = View.GONE
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                searchText = inputEditText.text.toString()
-            }
-        }
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
         rvTrack.adapter = adapter
 
         inputEditText.setOnFocusChangeListener { view, hasFocus ->
             historyNotice.visibility =
-                if (hasFocus && inputEditText.text.isEmpty() && !searchHistory.read(
-                        sharedPreferences
-                    ).isEmpty()
+                if (hasFocus && inputEditText.text.isEmpty() && searchHistory.read(sharedPreferences)
+                        .isNotEmpty()
                 ) View.VISIBLE else View.GONE
             rvHistoryTrack.adapter = TrackAdapter(searchHistory.read(sharedPreferences)) {
 
@@ -176,8 +183,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showNotice(status: NetworkStatus) {
-        val buttonRepeat = findViewById<Button>(R.id.buttonRefresh)
-        buttonRepeat.visibility = View.GONE
+        val buttonRefresh = findViewById<Button>(R.id.buttonRefresh)
+        buttonRefresh.visibility = View.GONE
         placeholderNotice.visibility = View.VISIBLE
         tracks.clear()
         adapter.notifyDataSetChanged()
@@ -192,7 +199,7 @@ class SearchActivity : AppCompatActivity() {
             NetworkStatus.ERROR -> {
                 textNotice.text = getString(R.string.no_internet)
                 imageNotice.setImageResource(R.drawable.no_internet)
-                buttonRepeat.visibility = View.VISIBLE
+                buttonRefresh.visibility = View.VISIBLE
             }
         }
     }

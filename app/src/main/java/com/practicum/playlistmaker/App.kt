@@ -33,11 +33,6 @@ class App : Application() {
         sharedPreferences.edit().putBoolean(THEME_KEY, darkTheme).apply()
     }
 
-    fun saveAppPreferences(key: String, value: Boolean) {
-        sharedPreferences.edit()
-            .putBoolean(key, value)
-            .apply()
-    }
     companion object {
         const val THEME_KEY = "theme_key"
     }

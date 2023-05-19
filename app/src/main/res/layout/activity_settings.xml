@@ -25,7 +25,7 @@
             style="@style/upper_bar_text_view"/>
     </LinearLayout>
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
+    <Switch
         android:id="@+id/themeSwitcher"
         style="@style/day_night_switch"
         android:layout_width="match_parent"

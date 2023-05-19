@@ -10,7 +10,7 @@ class SearchHistory {
 
     fun setTrack(track: Tracks, sharedPreferences: SharedPreferences) {
         val tracks = read(sharedPreferences)
-        if (!tracks.remove(track) && tracks.size >= MAXIMUM) tracks.removeAt(MAXIMUM - 1)
+        if (!tracks.remove(track) && tracks.size >= MAX_COUNT_HISTORY_TRACK) tracks.removeAt(MAX_COUNT_HISTORY_TRACK - 1)
         tracks.add(0, track)
         write(sharedPreferences, tracks)
     }
@@ -38,6 +38,6 @@ class SearchHistory {
 
     companion object {
         const val TRACKS_KEY = "track_key"
-        const val MAXIMUM = 10
+        const val MAX_COUNT_HISTORY_TRACK = 10
     }
 }

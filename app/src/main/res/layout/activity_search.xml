@@ -49,7 +49,7 @@
             android:layout_gravity="center|end"
             android:layout_marginEnd="@dimen/icon_padding"
             android:src="@drawable/clear_cross"
-            android:visibility="visible"
+            android:visibility="gone"
             app:tint="?attr/colorSecondaryVariant" />
     </FrameLayout>
 
