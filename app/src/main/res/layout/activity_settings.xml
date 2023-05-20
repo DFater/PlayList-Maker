@@ -26,6 +26,7 @@
     </LinearLayout>
 
     <Switch
+        android:id="@+id/themeSwitcher"
         style="@style/day_night_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

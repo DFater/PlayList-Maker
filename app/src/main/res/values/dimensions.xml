@@ -10,7 +10,8 @@
     <dimen name="medium_plus_size">28dp</dimen>
     <dimen name="large_margin">40dp</dimen>
     <dimen name="track_image_size">44dp</dimen>
-    <dimen name="placeholder_button_radius">54dp</dimen>
+    <dimen name="search_history_large">50dp</dimen>
+    <dimen name="placeholder_button_radius">52dp</dimen>
     <dimen name="track_layout">60dp</dimen>
     <dimen name="small_text_size">12sp</dimen>
     <dimen name="medium_text_size">16sp</dimen>
