@@ -1,6 +1,7 @@
 package com.practicum.playlistmaker
 
 import android.app.Activity
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -54,7 +55,10 @@ class SearchActivity : AppCompatActivity() {
     private val searchHistory = SearchHistory()
     private val adapter = TrackAdapter(tracks) {
         searchHistory.setTrack(it, sharedPreferences)
+        val showPlayerActivity = Intent(this, PlayerActivity::class.java)
+        startActivity(showPlayerActivity)
     }
+
 
     companion object {
         const val SEARCH_TEXT = "SEARCH_TEXT"
@@ -77,6 +81,10 @@ class SearchActivity : AppCompatActivity() {
                             View.VISIBLE
                         rvHistoryTrack.adapter =
                             TrackAdapter(searchHistory.read(sharedPreferences)) {
+                                searchHistory.setTrack(it, sharedPreferences)
+                                val showPlayerActivity =
+                                    Intent(this@SearchActivity, PlayerActivity::class.java)
+                                startActivity(showPlayerActivity)
                             }
                     }
                 } else {
@@ -129,7 +137,9 @@ class SearchActivity : AppCompatActivity() {
                         .isNotEmpty()
                 ) View.VISIBLE else View.GONE
             rvHistoryTrack.adapter = TrackAdapter(searchHistory.read(sharedPreferences)) {
-
+                searchHistory.setTrack(it, sharedPreferences)
+                val showPlayerActivity = Intent(this, PlayerActivity::class.java)
+                startActivity(showPlayerActivity)
             }
         }
         clearHistoryButton.setOnClickListener {
