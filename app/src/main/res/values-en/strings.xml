@@ -12,4 +12,10 @@
     <string name="refresh">refresh</string>
     <string name="you_search">You search</string>
     <string name="clear_history">Clear history</string>
+    <string name="time_duration">Time duration</string>
+    <string name="year_of_release">Year</string>
+    <string name="album_name">Album</string>
+    <string name="genre">Genre</string>
+    <string name="country">Country</string>
+    <string name="start_time">00:00</string>
 </resources>

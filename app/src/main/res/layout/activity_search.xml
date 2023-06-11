@@ -53,6 +53,15 @@
             app:tint="?attr/colorSecondaryVariant" />
     </FrameLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/track_image_size"
+        android:layout_height="@dimen/track_image_size"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp148_margin"
+        android:indeterminateTint="@color/blue_500"
+        android:visibility="gone" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
