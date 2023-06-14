@@ -22,4 +22,3 @@ data class Tracks(
     @SerializedName("previewUrl")
     val previewUrl: String
 )
-

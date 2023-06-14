@@ -84,7 +84,6 @@ class PlayerActivity : AppCompatActivity() {
             .into(albumCover)
     }
 
-
     private fun preparePlayer(item: Tracks) {
         mediaPlayer.setDataSource(item.previewUrl)
         mediaPlayer.prepareAsync()
