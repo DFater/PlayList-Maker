@@ -24,7 +24,5 @@
     <string name="year_of_release">Год</string>
     <string name="genre">Жанр</string>
     <string name="country">Страна</string>
-    <string name="start_time">"00:00"</string>
 </resources>
-
 
