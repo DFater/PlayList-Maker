@@ -31,7 +31,6 @@ class SearchActivity : AppCompatActivity() {
 
     private val iTunesService = retrofit.create(ITunesApi::class.java)
 
-
     private val arrowBack: ImageView by lazy { findViewById(R.id.arrow_search_back) }
     private val inputEditText: EditText by lazy { findViewById(R.id.inputEditText) }
     private val clearButton: ImageView by lazy { findViewById(R.id.clearIcon) }
