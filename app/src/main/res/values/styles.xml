@@ -67,22 +67,16 @@
         <item name="android:layout_marginStart">@dimen/icon_padding</item>
     </style>
 
-    <style name="track_name_text_view" parent="track_name_media_player">
+    <style name="track_name_text_view">
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_marginStart">@dimen/tiny_size</item>
         <item name="android:layout_marginTop">@dimen/icon_padding</item>
         <item name="android:layout_marginEnd">@dimen/small_size</item>
-        <item name="android:textSize">@dimen/medium_text_size</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
-    </style>
-
-    <style name="track_name_media_player">
-        <item name="android:layout_marginTop">@dimen/margin_after_item</item>
-        <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:maxLines">1</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textFontWeight">400</item>
-        <item name="android:textSize">@dimen/large_text_size</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
     </style>
 
     <style name="actors_name_text_view">
@@ -136,43 +130,4 @@
         <item name="android:shadowRadius">0</item>
         <item name="android:textFontWeight">500</item>
     </style>
-
-    <style name="actors_name_media_player" parent="track_name_media_player">
-        <item name="android:layout_marginTop">@dimen/icon_padding</item>
-        <item name="android:textSize">@dimen/sp14_text_size</item>
-    </style>
-
-    <style name="track_time_progress_in_player" parent="track_name_media_player">
-        <item name="android:layout_marginTop">@dimen/icon_padding</item>
-        <item name="android:textFontWeight">500</item>
-        <item name="android:textSize">@dimen/sp14_text_size</item>
-    </style>
-
-    <style name="first_track_info_in_player">
-        <item name="android:layout_marginTop">@dimen/large_margin</item>
-        <item name="android:fontFamily">@font/ys_display_regular</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textColor">@color/light_grey_for_SVG</item>
-        <item name="android:textFontWeight">400</item>
-        <item name="android:textSize">@dimen/small_text_size</item>
-    </style>
-
-    <style name="other_track_info_in_player">
-        <item name="android:layout_marginTop">@dimen/small_size</item>
-        <item name="android:fontFamily">@font/ys_display_regular</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textColor">@color/light_grey_for_SVG</item>
-        <item name="android:textFontWeight">400</item>
-        <item name="android:textSize">@dimen/small_text_size</item>
-    </style>
-
-    <style name="playing_track_info_style">
-        <item name="android:fontFamily">@font/ys_display_regular</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="android:textFontWeight">400</item>
-        <item name="android:textSize">@dimen/small_text_size</item>
-        <item name="android:gravity">end</item>
-    </style>
-
 </resources>

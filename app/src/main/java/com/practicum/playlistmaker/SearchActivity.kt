@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -49,28 +47,20 @@ class SearchActivity : AppCompatActivity() {
             MODE_PRIVATE
         )
     }
-    private val progressBar: ProgressBar by lazy { findViewById(R.id.progressBar) }
 
     private var searchText: String = ""
-
-    private var isClickAllowed = true
-    private val handler = Handler(Looper.getMainLooper())
-    private val searchRunnable = Runnable { search() }
 
     private val tracks = ArrayList<Tracks>()
     private val searchHistory = SearchHistory()
     private val adapter = TrackAdapter(tracks) {
-        if (clickDebounce()) {
-            searchHistory.setTrack(it, sharedPreferences)
-            val showPlayerActivity = Intent(this, PlayerActivity::class.java)
-            startActivity(showPlayerActivity)
-        }
+        searchHistory.setTrack(it, sharedPreferences)
+        val showPlayerActivity = Intent(this, PlayerActivity::class.java)
+        startActivity(showPlayerActivity)
     }
+
 
     companion object {
         const val SEARCH_TEXT = "SEARCH_TEXT"
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
 
@@ -85,15 +75,19 @@ class SearchActivity : AppCompatActivity() {
                 clearButton.isVisible = !s.isNullOrEmpty()
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
                     showNotice(NetworkStatus.SUCCESS)
-                    handler.removeCallbacks(searchRunnable)
                     if (!searchHistory.read(sharedPreferences).isEmpty()) {
                         historyNotice.visibility =
                             View.VISIBLE
-                        saveAndOpen()
+                        rvHistoryTrack.adapter =
+                            TrackAdapter(searchHistory.read(sharedPreferences)) {
+                                searchHistory.setTrack(it, sharedPreferences)
+                                val showPlayerActivity =
+                                    Intent(this@SearchActivity, PlayerActivity::class.java)
+                                startActivity(showPlayerActivity)
+                            }
                     }
                 } else {
                     historyNotice.visibility = View.GONE
-                    searchDebounce()
                 }
             }
 
@@ -114,7 +108,8 @@ class SearchActivity : AppCompatActivity() {
             val inputMethodManager =
                 getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(inputEditText.windowToken, 0)
-            saveAndOpen()
+            rvHistoryTrack.adapter = TrackAdapter(searchHistory.read(sharedPreferences)) {
+            }
         }
 
         val buttonRepeat = findViewById<Button>(R.id.buttonRefresh)
@@ -140,7 +135,11 @@ class SearchActivity : AppCompatActivity() {
                 if (hasFocus && inputEditText.text.isEmpty() && searchHistory.read(sharedPreferences)
                         .isNotEmpty()
                 ) View.VISIBLE else View.GONE
-            saveAndOpen()
+            rvHistoryTrack.adapter = TrackAdapter(searchHistory.read(sharedPreferences)) {
+                searchHistory.setTrack(it, sharedPreferences)
+                val showPlayerActivity = Intent(this, PlayerActivity::class.java)
+                startActivity(showPlayerActivity)
+            }
         }
         clearHistoryButton.setOnClickListener {
             searchHistory.clearTracksHistory(sharedPreferences)
@@ -162,13 +161,11 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun search() {
-        progressBar.visibility = View.VISIBLE
         iTunesService.search(inputEditText.text.toString())
             .enqueue(object : Callback<TracksResponse> {
                 override fun onResponse(
                     call: Call<TracksResponse>, response: Response<TracksResponse>
                 ) {
-                    progressBar.visibility = View.GONE
                     if (response.code() == 200) {
                         tracks.clear()
                         if (response.body()?.results?.isNotEmpty() == true) {
@@ -214,30 +211,6 @@ class SearchActivity : AppCompatActivity() {
                 buttonRefresh.visibility = View.VISIBLE
             }
         }
-    }
-
-    private fun clickDebounce(): Boolean {
-        val current = isClickAllowed
-        if (isClickAllowed) {
-            isClickAllowed = false
-            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
-        }
-        return current
-    }
-
-    private fun searchDebounce() {
-        handler.removeCallbacks(searchRunnable)
-        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
-    }
-
-    private fun saveAndOpen() {
-        rvHistoryTrack.adapter =
-            TrackAdapter(searchHistory.read(sharedPreferences)) {
-                searchHistory.setTrack(it, sharedPreferences)
-                val showPlayerActivity =
-                    Intent(this@SearchActivity, PlayerActivity::class.java)
-                startActivity(showPlayerActivity)
-            }
     }
 }
 
