@@ -1,7 +1,5 @@
 package com.practicum.playlistmaker
-
 import com.google.gson.annotations.SerializedName
-
 data class Tracks(
     @SerializedName("trackName")
     val trackName: String,
@@ -18,5 +16,7 @@ data class Tracks(
     @SerializedName("primaryGenreName")
     val primaryGenreName: String,
     @SerializedName("country")
-    val country: String
+    val country: String,
+    @SerializedName("previewUrl")
+    val previewUrl: String
 )

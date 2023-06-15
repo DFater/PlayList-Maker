@@ -17,4 +17,5 @@
     <string name="album_name">Album</string>
     <string name="genre">Genre</string>
     <string name="country">Country</string>
+    <string name="start_time">Start time</string>
 </resources>
