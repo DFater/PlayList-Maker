@@ -27,10 +27,15 @@ class App : Application() {
             if (darkThemeEnabled) {
                 AppCompatDelegate.MODE_NIGHT_YES
             } else {
-                AppCompatDelegate.MODE_NIGHT_NO
+                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             }
         )
-        sharedPreferences.edit().putBoolean(THEME_KEY, darkTheme).apply()
+    }
+
+    fun saveAppPreferences(key: String, value: Boolean) {
+        sharedPreferences.edit()
+            .putBoolean(key, value)
+            .apply()
     }
 
     companion object {
