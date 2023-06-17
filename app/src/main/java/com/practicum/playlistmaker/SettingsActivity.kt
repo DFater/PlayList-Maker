@@ -22,8 +22,9 @@ class SettingsActivity : AppCompatActivity() {
         themeSwitcher.isChecked = (applicationContext as App).darkTheme
 
 
-        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
-            (applicationContext as App).switchTheme(checked)
+        themeSwitcher.setOnCheckedChangeListener { _, isChecked ->
+            (applicationContext as App).switchTheme(isChecked)
+            (applicationContext as App).saveAppPreferences(App.THEME_KEY, isChecked)
         }
 
         arrowBack.setOnClickListener {

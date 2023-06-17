@@ -1,9 +1,10 @@
 package com.practicum.playlistmaker
-
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -19,18 +20,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 class SearchActivity : AppCompatActivity() {
-
     private val iTunesBaseUrl = "http://itunes.apple.com"
-
     private val retrofit = Retrofit.Builder()
         .baseUrl(iTunesBaseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
     private val iTunesService = retrofit.create(ITunesApi::class.java)
-
     private val arrowBack: ImageView by lazy { findViewById(R.id.arrow_search_back) }
     private val inputEditText: EditText by lazy { findViewById(R.id.inputEditText) }
     private val clearButton: ImageView by lazy { findViewById(R.id.clearIcon) }
@@ -47,8 +43,13 @@ class SearchActivity : AppCompatActivity() {
             MODE_PRIVATE
         )
     }
+    private val progressBar: ProgressBar by lazy { findViewById(R.id.progressBar) }
 
     private var searchText: String = ""
+
+    private var isClickAllowed = true
+    private val handler = Handler(Looper.getMainLooper())
+    private val searchRunnable = Runnable { search() }
 
     private val tracks = ArrayList<Tracks>()
     private val searchHistory = SearchHistory()
@@ -56,25 +57,30 @@ class SearchActivity : AppCompatActivity() {
         searchHistory.setTrack(it, sharedPreferences)
         val showPlayerActivity = Intent(this, PlayerActivity::class.java)
         startActivity(showPlayerActivity)
+        if (clickDebounce()) {
+            searchHistory.setTrack(it, sharedPreferences)
+            val showPlayerActivity = Intent(this, PlayerActivity::class.java)
+            startActivity(showPlayerActivity)
+        }
     }
 
 
     companion object {
         const val SEARCH_TEXT = "SEARCH_TEXT"
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-
         val simpleTextWatcher = object : SimpleTextWatcher {
-
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.isVisible = !s.isNullOrEmpty()
                 if (inputEditText.hasFocus() && s?.isEmpty() == true) {
                     showNotice(NetworkStatus.SUCCESS)
+                    handler.removeCallbacks(searchRunnable)
                     if (!searchHistory.read(sharedPreferences).isEmpty()) {
                         historyNotice.visibility =
                             View.VISIBLE
@@ -85,9 +91,11 @@ class SearchActivity : AppCompatActivity() {
                                     Intent(this@SearchActivity, PlayerActivity::class.java)
                                 startActivity(showPlayerActivity)
                             }
+                        saveAndOpen()
                     }
                 } else {
                     historyNotice.visibility = View.GONE
+                    searchDebounce()
                 }
             }
 
@@ -95,11 +103,9 @@ class SearchActivity : AppCompatActivity() {
                 searchText = inputEditText.text.toString()
             }
         }
-
         arrowBack.setOnClickListener {
             finish()
         }
-
         clearButton.setOnClickListener {
             inputEditText.setText("")
             showNotice(NetworkStatus.SUCCESS)
@@ -110,13 +116,13 @@ class SearchActivity : AppCompatActivity() {
             inputMethodManager.hideSoftInputFromWindow(inputEditText.windowToken, 0)
             rvHistoryTrack.adapter = TrackAdapter(searchHistory.read(sharedPreferences)) {
             }
+            saveAndOpen()
         }
 
         val buttonRepeat = findViewById<Button>(R.id.buttonRefresh)
         buttonRepeat.setOnClickListener {
             search()
         }
-
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (inputEditText.text.isNotEmpty()) {
@@ -125,11 +131,8 @@ class SearchActivity : AppCompatActivity() {
             }
             false
         }
-
         inputEditText.addTextChangedListener(simpleTextWatcher)
-
         rvTrack.adapter = adapter
-
         inputEditText.setOnFocusChangeListener { view, hasFocus ->
             historyNotice.visibility =
                 if (hasFocus && inputEditText.text.isEmpty() && searchHistory.read(sharedPreferences)
@@ -140,18 +143,17 @@ class SearchActivity : AppCompatActivity() {
                 val showPlayerActivity = Intent(this, PlayerActivity::class.java)
                 startActivity(showPlayerActivity)
             }
+            saveAndOpen()
         }
         clearHistoryButton.setOnClickListener {
             searchHistory.clearTracksHistory(sharedPreferences)
             historyNotice.visibility = View.GONE
         }
     }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(SEARCH_TEXT, searchText)
     }
-
     override fun onRestoreInstanceState(
         savedInstanceState: Bundle
     ) {
@@ -161,11 +163,13 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun search() {
+        progressBar.visibility = View.VISIBLE
         iTunesService.search(inputEditText.text.toString())
             .enqueue(object : Callback<TracksResponse> {
                 override fun onResponse(
                     call: Call<TracksResponse>, response: Response<TracksResponse>
                 ) {
+                    progressBar.visibility = View.GONE
                     if (response.code() == 200) {
                         tracks.clear()
                         if (response.body()?.results?.isNotEmpty() == true) {
@@ -181,16 +185,12 @@ class SearchActivity : AppCompatActivity() {
                             NetworkStatus.ERROR
                         )
                     }
-
                 }
-
                 override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
                     showNotice(NetworkStatus.ERROR)
                 }
-
             })
     }
-
     private fun showNotice(status: NetworkStatus) {
         val buttonRefresh = findViewById<Button>(R.id.buttonRefresh)
         buttonRefresh.visibility = View.GONE
@@ -212,17 +212,37 @@ class SearchActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
+
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
+
+    private fun saveAndOpen() {
+        rvHistoryTrack.adapter =
+            TrackAdapter(searchHistory.read(sharedPreferences)) {
+                searchHistory.setTrack(it, sharedPreferences)
+                val showPlayerActivity =
+                    Intent(this@SearchActivity, PlayerActivity::class.java)
+                startActivity(showPlayerActivity)
+            }
+    }
 }
 
 private interface SimpleTextWatcher : TextWatcher {
-
     override fun afterTextChanged(s: Editable?) = Unit
-
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 }
-
 enum class NetworkStatus {
     SUCCESS, EMPTY, ERROR
 }
