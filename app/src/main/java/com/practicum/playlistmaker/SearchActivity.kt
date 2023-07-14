@@ -14,19 +14,17 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.SearchHistory
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.practicum.playlistmaker.Creator.provideTrackInteractor
+import com.practicum.playlistmaker.domain.api.TracksInteractor
+import com.practicum.playlistmaker.domain.models.Tracks
+import com.practicum.playlistmaker.ui.SearchHistory
+import com.practicum.playlistmaker.ui.player.PlayerActivity
+import com.practicum.playlistmaker.ui.track.TrackAdapter
+
 class SearchActivity : AppCompatActivity() {
-    private val iTunesBaseUrl = "http://itunes.apple.com"
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(iTunesBaseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    private val iTunesService = retrofit.create(ITunesApi::class.java)
+
+    private val trackProvider = provideTrackInteractor()
+
     private val arrowBack: ImageView by lazy { findViewById(R.id.arrow_search_back) }
     private val inputEditText: EditText by lazy { findViewById(R.id.inputEditText) }
     private val clearButton: ImageView by lazy { findViewById(R.id.clearIcon) }
@@ -164,32 +162,29 @@ class SearchActivity : AppCompatActivity() {
 
     private fun search() {
         progressBar.visibility = View.VISIBLE
-        iTunesService.search(inputEditText.text.toString())
-            .enqueue(object : Callback<TracksResponse> {
-                override fun onResponse(
-                    call: Call<TracksResponse>, response: Response<TracksResponse>
-                ) {
-                    progressBar.visibility = View.GONE
-                    if (response.code() == 200) {
-                        tracks.clear()
-                        if (response.body()?.results?.isNotEmpty() == true) {
-                            showNotice(NetworkStatus.SUCCESS)
-                            tracks.addAll(response.body()?.results!!)
-                            adapter.notifyDataSetChanged()
-                        }
-                        if (tracks.isEmpty()) {
-                            showNotice(NetworkStatus.EMPTY)
-                        }
-                    } else {
-                        showNotice(
-                            NetworkStatus.ERROR
-                        )
+        trackProvider.search(searchText, object : TracksInteractor.TrackConsumer {
+            override fun consume(foundTracks: ArrayList<Tracks>) {
+                if (foundTracks.isNotEmpty()) {
+                    handler.post {
+                        progressBar.visibility = View.GONE
+                        showNotice(NetworkStatus.SUCCESS)
+                        tracks.addAll(foundTracks)
                     }
                 }
-                override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
+            }
+
+            override fun onEmpty() {
+                handler.post {
+                    showNotice(NetworkStatus.EMPTY)
+                }
+            }
+
+            override fun onFailure() {
+                handler.post {
                     showNotice(NetworkStatus.ERROR)
                 }
-            })
+            }
+        })
     }
     private fun showNotice(status: NetworkStatus) {
         val buttonRefresh = findViewById<Button>(R.id.buttonRefresh)

@@ -1,16 +1,20 @@
-package com.example.playlistmaker
+package com.practicum.playlistmaker.ui
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.practicum.playlistmaker.Tracks
+import com.practicum.playlistmaker.domain.models.Tracks
 import java.lang.reflect.Type
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SearchHistory {
 
     fun setTrack(track: Tracks, sharedPreferences: SharedPreferences) {
         val tracks = read(sharedPreferences)
-        if (!tracks.remove(track) && tracks.size >= MAX_COUNT_HISTORY_TRACK) tracks.removeAt(MAX_COUNT_HISTORY_TRACK - 1)
+        if (!tracks.remove(track) && tracks.size >= MAX_COUNT_HISTORY_TRACK) tracks.removeAt(
+            MAX_COUNT_HISTORY_TRACK - 1)
         tracks.add(0, track)
         write(sharedPreferences, tracks)
     }
