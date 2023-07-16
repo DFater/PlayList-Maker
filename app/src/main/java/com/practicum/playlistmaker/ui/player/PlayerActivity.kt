@@ -14,6 +14,7 @@ import com.practicum.playlistmaker.Creator
 import com.practicum.playlistmaker.PRACTICUM_PREFERENCES
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.ui.SearchHistory
+import java.util.*
 
 class PlayerActivity : AppCompatActivity() {
 
@@ -70,7 +71,7 @@ class PlayerActivity : AppCompatActivity() {
         trackNamePlayer.text = item.trackName
         actorNamePlayer.text = item.artistName
         albumName.text = item.albumName
-        releaseDate.text = item.releaseDate.toString()
+        releaseDate.text = item.getReleaseYear()
         genre.text = item.genreName
         country.text = item.country
         timeDuration.text = item.trackTime

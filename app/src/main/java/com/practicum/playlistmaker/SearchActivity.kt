@@ -16,7 +16,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.Creator.provideTrackInteractor
 import com.practicum.playlistmaker.domain.api.TracksInteractor
-import com.practicum.playlistmaker.domain.models.Tracks
+import com.practicum.playlistmaker.domain.models.Track
 import com.practicum.playlistmaker.ui.SearchHistory
 import com.practicum.playlistmaker.ui.player.PlayerActivity
 import com.practicum.playlistmaker.ui.track.TrackAdapter
@@ -49,12 +49,10 @@ class SearchActivity : AppCompatActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private val searchRunnable = Runnable { search() }
 
-    private val tracks = ArrayList<Tracks>()
+    private val tracks = ArrayList<Track>()
     private val searchHistory = SearchHistory()
     private val adapter = TrackAdapter(tracks) {
         searchHistory.setTrack(it, sharedPreferences)
-        val showPlayerActivity = Intent(this, PlayerActivity::class.java)
-        startActivity(showPlayerActivity)
         if (clickDebounce()) {
             searchHistory.setTrack(it, sharedPreferences)
             val showPlayerActivity = Intent(this, PlayerActivity::class.java)
@@ -163,7 +161,7 @@ class SearchActivity : AppCompatActivity() {
     private fun search() {
         progressBar.visibility = View.VISIBLE
         trackProvider.search(searchText, object : TracksInteractor.TrackConsumer {
-            override fun consume(foundTracks: ArrayList<Tracks>) {
+            override fun consume(foundTracks: ArrayList<Track>) {
                 if (foundTracks.isNotEmpty()) {
                     handler.post {
                         progressBar.visibility = View.GONE

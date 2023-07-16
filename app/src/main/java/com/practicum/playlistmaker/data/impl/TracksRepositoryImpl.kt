@@ -4,7 +4,7 @@ import com.practicum.playlistmaker.data.NetworkClient
 import com.practicum.playlistmaker.data.dto.TracksSearchRequest
 import com.practicum.playlistmaker.data.dto.TracksSearchResponse
 import com.practicum.playlistmaker.domain.api.TracksRepository
-import com.practicum.playlistmaker.domain.models.Tracks
+import com.practicum.playlistmaker.domain.models.Track
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,11 +14,11 @@ class TracksRepositoryImpl(private val networkClient: NetworkClient) : TracksRep
         expression: String,
         onEmpty: () -> Unit,
         onFailure: () -> Unit
-    ): ArrayList<Tracks> {
+    ): ArrayList<Track> {
         val response = networkClient.doRequest(TracksSearchRequest(expression))
         if (response.resultCode == 200) {
             val list = (response as TracksSearchResponse).results.map {
-                Tracks(
+                Track(
                     it.trackId,
                     it.trackName,
                     it.artistName,
@@ -31,7 +31,7 @@ class TracksRepositoryImpl(private val networkClient: NetworkClient) : TracksRep
                     it.previewUrl
                 )
             }
-            val arrayList = ArrayList<Tracks>()
+            val arrayList = ArrayList<Track>()
             arrayList.addAll(list)
             if (arrayList.isEmpty()) {
                 onEmpty()

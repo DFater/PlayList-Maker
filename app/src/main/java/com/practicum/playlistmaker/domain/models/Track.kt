@@ -3,7 +3,7 @@ package com.practicum.playlistmaker.domain.models
 import java.text.SimpleDateFormat
 import java.util.*
 
-data class Tracks(
+data class Track(
     val trackId: Long?,
     val trackName: String?,
     val artistName: String?,
@@ -17,6 +17,6 @@ data class Tracks(
 ){
     fun getCoverArtwork() = artworkUrl100?.replaceAfterLast('/', "512x512bb.jpg")
     fun getReleaseYear(): String =
-        SimpleDateFormat("xxxx", Locale.getDefault()).format(releaseDate!!).orEmpty()
+        SimpleDateFormat("yyyy", Locale.getDefault()).format(releaseDate!!).orEmpty()
 
 }

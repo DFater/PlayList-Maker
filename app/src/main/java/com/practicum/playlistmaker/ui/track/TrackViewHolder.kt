@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.practicum.playlistmaker.R
-import com.practicum.playlistmaker.domain.models.Tracks
-import java.text.SimpleDateFormat
-import java.util.*
+import com.practicum.playlistmaker.domain.models.Track
 
 class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
     private val trackImage: ImageView by lazy { itemView.findViewById(R.id.track_image) }
@@ -17,7 +15,7 @@ class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
     private val actorsName: TextView by lazy { itemView.findViewById(R.id.actors_name)}
     private val trackDuration: TextView by lazy { itemView.findViewById(R.id.track_duration)}
 
-    fun bind(model: Tracks) {
+    fun bind(model: Track) {
         trackName.text = model.trackName
         actorsName.text = model.artistName
         trackDuration.text = model.trackTime
