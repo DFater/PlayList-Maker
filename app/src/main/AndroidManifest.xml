@@ -24,28 +24,28 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.player.PlayerActivity"
+            android:name=".player.ui.activity.PlayerActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.MediaLibraryActivity"
+            android:name=".media.ui.MediaLibraryActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.SettingsActivity"
+            android:name=".setting.ui.activity.SettingsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".main.ui.MainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
