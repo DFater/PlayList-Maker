@@ -3,30 +3,25 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.practicum.playlistmaker.databinding.ActivitySearchBinding
+import com.practicum.playlistmaker.player.ui.activity.PlayerActivity
 import com.practicum.playlistmaker.search.domain.models.Track
 import com.practicum.playlistmaker.search.ui.SearchActivityState
 import com.practicum.playlistmaker.search.ui.view_model.SearchViewModel
-import com.practicum.playlistmaker.player.ui.activity.PlayerActivity
 import com.practicum.playlistmaker.ui.track.TrackAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : AppCompatActivity() {
 
-    private val viewModel: SearchViewModel by lazy {
-        ViewModelProvider(
-            this,
-            SearchViewModel.getViewModelFactory((applicationContext as App).sharedPreferences)
-        )[SearchViewModel::class.java]
-    }
     private lateinit var binding: ActivitySearchBinding
+
+    private val viewModel: SearchViewModel by viewModel()
 
     private var searchText: String = ""
 

@@ -1,7 +1,7 @@
 package com.practicum.playlistmaker.media.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.practicum.playlistmaker.R
 
 class MediaLibraryActivity : AppCompatActivity() {
