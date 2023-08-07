@@ -15,7 +15,7 @@ class HistoryInteractorImpl(private val historyRepository: HistoryRepository): H
         if (trackInd > -1) {
             tracks.removeAt(trackInd)
         }
-        if (tracks.size > 9) {
+        if (tracks.size > MAX_COUNT_HISTORY_TRACK) {
             tracks.removeAt(0)
         }
         tracks.add(track)
@@ -24,5 +24,8 @@ class HistoryInteractorImpl(private val historyRepository: HistoryRepository): H
 
     override fun clearSearchHistory() {
         historyRepository.clearSearchHistory()
+    }
+    companion object {
+        const val MAX_COUNT_HISTORY_TRACK = 9
     }
 }

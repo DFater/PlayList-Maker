@@ -8,11 +8,11 @@ import com.practicum.playlistmaker.search.domain.api.HistoryRepository
 import com.practicum.playlistmaker.search.domain.models.Track
 import java.lang.reflect.Type
 
-class HistoryRepositoryImpl(private val sharedPreferences: SharedPreferences) : HistoryRepository {
+class HistoryRepositoryImpl(private val sharedPreferences: SharedPreferences, private val gson: Gson) : HistoryRepository {
     override fun getSearchHistory(): ArrayList<Track> {
         val json = sharedPreferences.getString(SEARCH_HISTORY_TRACKS, null) ?: return ArrayList()
         val typeOfTrackList: Type = object : TypeToken<ArrayList<Track?>?>() {}.type
-        return Gson().fromJson(json, typeOfTrackList)
+        return gson.fromJson(json, typeOfTrackList)
     }
 
     override fun saveSearchHistory(trackList: ArrayList<Track>) {
@@ -28,7 +28,7 @@ class HistoryRepositoryImpl(private val sharedPreferences: SharedPreferences) : 
     }
 
     private fun createJsonFromTrackList(trackList: Array<Track>): String {
-        return Gson().toJson(trackList)
+        return gson.toJson(trackList)
     }
 
     companion object {

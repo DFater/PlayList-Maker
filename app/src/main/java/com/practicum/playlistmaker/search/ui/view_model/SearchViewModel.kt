@@ -1,15 +1,10 @@
 package com.practicum.playlistmaker.search.ui.view_model
 
-import android.content.SharedPreferences
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.practicum.playlistmaker.creator.Creator
 import com.practicum.playlistmaker.search.domain.api.HistoryInteractor
 import com.practicum.playlistmaker.search.domain.api.TrackInteractor
 import com.practicum.playlistmaker.search.domain.models.Track
@@ -24,16 +19,6 @@ class SearchViewModel(
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
         private const val CLICK_DEBOUNCE_DELAY = 1000L
-
-        fun getViewModelFactory(sharedPreferences: SharedPreferences): ViewModelProvider.Factory =
-            viewModelFactory {
-                initializer {
-                    SearchViewModel(
-                        Creator.provideTrackInteractorImpl(),
-                        Creator.provideHistoryInteractorImpl(sharedPreferences)
-                    )
-                }
-            }
     }
 
     private val stateLiveData = MutableLiveData<SearchActivityState>()

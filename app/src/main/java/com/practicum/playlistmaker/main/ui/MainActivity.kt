@@ -11,23 +11,23 @@ import com.practicum.playlistmaker.setting.ui.activity.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding?.root)
 
-        binding.searchButton.setOnClickListener {
+        binding?.searchButton?.setOnClickListener {
             val searchIntent = Intent(this@MainActivity, SearchActivity::class.java)
             startActivity(searchIntent)
         }
 
-        binding.mediaLibraryButton.setOnClickListener {
+        binding?.mediaLibraryButton?.setOnClickListener {
             val mediaIntent = Intent(this@MainActivity, MediaLibraryActivity::class.java)
             startActivity(mediaIntent)
         }
-        binding.settingsButton.setOnClickListener {
+        binding?.settingsButton?.setOnClickListener {
             val settingsIntent = Intent(this@MainActivity, SettingsActivity::class.java)
             startActivity(settingsIntent)
         }

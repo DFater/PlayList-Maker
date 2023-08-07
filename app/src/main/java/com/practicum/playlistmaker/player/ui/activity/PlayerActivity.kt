@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.practicum.playlistmaker.R
@@ -16,41 +15,44 @@ import com.practicum.playlistmaker.player.ui.models.PlayerScreenState
 import com.practicum.playlistmaker.player.ui.models.TrackMapper
 import com.practicum.playlistmaker.player.ui.view_model.PlayerViewModel
 import com.practicum.playlistmaker.search.domain.models.Track
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class PlayerActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityPlayerBinding
-    private lateinit var viewModel: PlayerViewModel
+
+    private var binding: ActivityPlayerBinding? = null
+    private val viewModel: PlayerViewModel by viewModel {
+        parametersOf(track)
+    }
+
+    private lateinit var track: Track
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
 
-        setContentView(binding.root)
+        setContentView(binding?.root)
 
-        val track = getCurrentTrack()
-        viewModel = ViewModelProvider(
-            this,
-            PlayerViewModel.factory(track)
-        )[PlayerViewModel::class.java]
+        track = getCurrentTrack()
 
-        viewModel.observeState().observe(this) {
+        viewModel?.observeState()?.observe(this) {
             render(it)
         }
 
         init(track)
 
-        binding.arrowMediaBack.setOnClickListener {
+        binding?.arrowMediaBack?.setOnClickListener {
             finish()
         }
 
-        binding.playButton.setOnClickListener {
-            viewModel.playBackControl()
+        binding?.playButton?.setOnClickListener {
+            viewModel?.playBackControl()
         }
     }
 
     override fun onPause() {
         super.onPause()
-        viewModel.pausePlayer()
+        viewModel?.pausePlayer()
     }
 
     private fun getCurrentTrack(): Track {
@@ -73,13 +75,15 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun init(track: Track) {
-        binding.trackNamePlayer.text = track.trackName.orEmpty()
-        binding.actorNamePlayer.text = track.artistName.orEmpty()
-        binding.timeDurationPlayingTrack.text = track.trackTime.orEmpty()
-        binding.albumNamePlayingTrack.text = track.albumName.orEmpty()
-        binding.countryPlayingTrack.text = track.country.orEmpty()
-        binding.yearOfReleasePlayingTrack.text = track.getReleaseYear()
-        binding.genrePlayingTrack.text = track.genreName.orEmpty()
+        with(binding) {
+            this?.trackNamePlayer?.text = track.trackName.orEmpty()
+            this?.actorNamePlayer?.text = track.artistName.orEmpty()
+            this?.timeDurationPlayingTrack?.text = track.trackTime.orEmpty()
+            this?.albumNamePlayingTrack?.text = track.albumName.orEmpty()
+            this?.countryPlayingTrack?.text = track.country.orEmpty()
+            this?.yearOfReleasePlayingTrack?.text = track.getReleaseYear()
+            this?.genrePlayingTrack?.text = track.genreName.orEmpty()
+        }
         Glide.with(this)
             .load(track.getCoverArtwork())
             .placeholder(R.drawable.placeholder)
@@ -90,27 +94,26 @@ class PlayerActivity : AppCompatActivity() {
                         .displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt()
                 )
             )
-            .into(binding.albumCover)
-
+            .into(binding?.albumCover!!)
     }
 
     private fun setTime(time: String?) {
         if (!time.isNullOrEmpty()) {
-            binding.trackTimeProgressInPlayer.text = time
+            binding?.trackTimeProgressInPlayer?.text = time
         }
     }
 
     private fun onGetDefaultState() {
-        binding.playButton.isEnabled = false
+        binding?.playButton?.isEnabled = false
     }
 
     private fun onGetPreparedState() {
-        binding.playButton.setImageResource(R.drawable.play)
-        binding.playButton.isEnabled = true
+        binding?.playButton?.setImageResource(R.drawable.play)
+        binding?.playButton?.isEnabled = true
     }
 
     private fun onGetPlayingState() {
-        binding.playButton.setImageResource(R.drawable.pause)
+        binding?.playButton?.setImageResource(R.drawable.pause)
     }
 
     private fun onGetProgressState(time: String?) {
@@ -119,7 +122,7 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun onGetPausedState(time: String?) {
         setTime(time)
-        binding.playButton.setImageResource(R.drawable.play)
+        binding?.playButton?.setImageResource(R.drawable.play)
     }
 
     companion object {
