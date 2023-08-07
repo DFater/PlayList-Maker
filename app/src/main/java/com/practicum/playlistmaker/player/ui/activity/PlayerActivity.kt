@@ -15,12 +15,17 @@ import com.practicum.playlistmaker.player.ui.models.PlayerScreenState
 import com.practicum.playlistmaker.player.ui.models.TrackMapper
 import com.practicum.playlistmaker.player.ui.view_model.PlayerViewModel
 import com.practicum.playlistmaker.search.domain.models.Track
-import org.koin.android.ext.android.getKoin
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class PlayerActivity : AppCompatActivity() {
+
     private var binding: ActivityPlayerBinding? = null
-    private var viewModel: PlayerViewModel? = null
+    private val viewModel: PlayerViewModel by viewModel {
+        parametersOf(track)
+    }
+
+    private lateinit var track: Track
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +33,7 @@ class PlayerActivity : AppCompatActivity() {
 
         setContentView(binding?.root)
 
-        val track = getCurrentTrack()
-
-        viewModel = getKoin().get { parametersOf(track) }
+        track = getCurrentTrack()
 
         viewModel?.observeState()?.observe(this) {
             render(it)
