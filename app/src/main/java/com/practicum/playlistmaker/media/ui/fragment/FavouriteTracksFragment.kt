@@ -18,13 +18,22 @@ class FavouriteTracksFragment : Fragment() {
         }
     }
 
-    private var binding: FavouriteTracksFragmentBinding? = null
+    private var _binding: FavouriteTracksFragmentBinding? = null
+
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FavouriteTracksFragmentBinding.inflate(inflater, container, false)
-        return binding!!.root
+        _binding = FavouriteTracksFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
