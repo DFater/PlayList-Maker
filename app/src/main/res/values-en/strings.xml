@@ -18,4 +18,9 @@
     <string name="genre">Genre</string>
     <string name="country">Country</string>
     <string name="start_time">Start time</string>
+    <string name="new_playlist">New playlist</string>
+    <string name="playlists_not_found">Playlists not found</string>
+    <string name="empty_media_library">Empty media library</string>
+    <string name="favourites_tracks_tab">Favourites tracks</string>
+    <string name="playlists_tab">Playlists</string>
 </resources>
