@@ -1,15 +1,20 @@
-package com.practicum.playlistmaker
-import android.annotation.SuppressLint
+package com.practicum.playlistmaker.search.ui.fragment
+
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.practicum.playlistmaker.databinding.ActivitySearchBinding
+import com.practicum.playlistmaker.R
+import com.practicum.playlistmaker.databinding.FragmentSearchBinding
 import com.practicum.playlistmaker.player.ui.activity.PlayerActivity
 import com.practicum.playlistmaker.search.domain.models.Track
 import com.practicum.playlistmaker.search.ui.SearchActivityState
@@ -17,9 +22,9 @@ import com.practicum.playlistmaker.search.ui.view_model.SearchViewModel
 import com.practicum.playlistmaker.ui.track.TrackAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchActivity : AppCompatActivity() {
+class SearchFragment : Fragment() {
 
-    private lateinit var binding: ActivitySearchBinding
+    private lateinit var binding: FragmentSearchBinding
 
     private val viewModel: SearchViewModel by viewModel()
 
@@ -44,17 +49,23 @@ class SearchActivity : AppCompatActivity() {
         const val SEARCH_TEXT = "SEARCH_TEXT"
     }
 
-    @SuppressLint("ServiceCast")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySearchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        viewModel.observeState().observe(this) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
 
-        viewModel.getShowPlayerLaunch().observe(this) {
+        viewModel.getShowPlayerLaunch().observe(viewLifecycleOwner) {
             showPlayerActivity(it)
         }
 
@@ -75,14 +86,12 @@ class SearchActivity : AppCompatActivity() {
                 searchText = binding.inputEditText.text.toString()
             }
         }
-        binding.arrowSearchBack.setOnClickListener {
-            finish()
-        }
+
 
         binding.clearIcon.setOnClickListener {
             binding.inputEditText.setText("")
             val imm =
-                binding.inputEditText.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                binding.inputEditText.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(binding.inputEditText.windowToken, 0)
         }
 
@@ -107,10 +116,10 @@ class SearchActivity : AppCompatActivity() {
             viewModel.onButtonRefresh()
         }
 
-        binding.rvTrack.layoutManager = LinearLayoutManager(this)
+        binding.rvTrack.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTrack.adapter = adapter
 
-        val mLayoutManager = LinearLayoutManager(this)
+        val mLayoutManager = LinearLayoutManager(requireContext())
         mLayoutManager.reverseLayout = true
         binding.rvHistoryTrack.layoutManager = mLayoutManager
         binding.rvHistoryTrack.adapter = historyAdapter
@@ -121,16 +130,15 @@ class SearchActivity : AppCompatActivity() {
         outState.putString(SEARCH_TEXT, searchText)
     }
 
-    override fun onRestoreInstanceState(
-        savedInstanceState: Bundle
-    ) {
-        super.onRestoreInstanceState(savedInstanceState)
-        binding.inputEditText.setText(savedInstanceState.getString(SEARCH_TEXT))
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        binding.inputEditText.setText(savedInstanceState?.getString(SEARCH_TEXT))
         binding.inputEditText.setSelection(binding.inputEditText.text.length)
     }
 
     private fun showPlayerActivity(track: Track) {
-        PlayerActivity.show(this, track)
+        findNavController().navigate(R.id.action_searchFragment_to_playerActivity,
+            PlayerActivity.createArgs(track))
     }
 
     private fun render(state: SearchActivityState) {

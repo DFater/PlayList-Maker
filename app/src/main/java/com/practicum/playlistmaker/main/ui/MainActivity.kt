@@ -3,10 +3,10 @@ package com.practicum.playlistmaker.main.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.practicum.playlistmaker.SearchActivity
+import com.practicum.playlistmaker.search.ui.fragment.SearchFragment
 import com.practicum.playlistmaker.databinding.ActivityMainBinding
-import com.practicum.playlistmaker.media.ui.activity.MediaLibraryActivity
-import com.practicum.playlistmaker.setting.ui.activity.SettingsActivity
+import com.practicum.playlistmaker.media.ui.fragment.MediaLibraryFragment
+import com.practicum.playlistmaker.setting.ui.fragment.SettingsFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,16 +19,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         binding?.searchButton?.setOnClickListener {
-            val searchIntent = Intent(this@MainActivity, SearchActivity::class.java)
+            val searchIntent = Intent(this@MainActivity, SearchFragment::class.java)
             startActivity(searchIntent)
         }
 
         binding?.mediaLibraryButton?.setOnClickListener {
-            val mediaIntent = Intent(this@MainActivity, MediaLibraryActivity::class.java)
+            val mediaIntent = Intent(this@MainActivity, MediaLibraryFragment::class.java)
             startActivity(mediaIntent)
         }
         binding?.settingsButton?.setOnClickListener {
-            val settingsIntent = Intent(this@MainActivity, SettingsActivity::class.java)
+            val settingsIntent = Intent(this@MainActivity, SettingsFragment::class.java)
             startActivity(settingsIntent)
         }
     }
