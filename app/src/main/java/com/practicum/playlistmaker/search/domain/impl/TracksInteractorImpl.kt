@@ -3,23 +3,19 @@ package com.practicum.playlistmaker.search.domain.impl
 
 import com.practicum.playlistmaker.search.domain.api.TrackInteractor
 import com.practicum.playlistmaker.search.domain.api.TrackRepository
+import com.practicum.playlistmaker.search.domain.models.Track
 import com.practicum.playlistmaker.search.domain.utils.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.util.concurrent.Executors
 
 class TracksInteractorImpl(private val repository: TrackRepository) : TrackInteractor {
 
-    private val executor = Executors.newCachedThreadPool()
-
-    override fun search(expression: String, consumer: TrackInteractor.TrackConsumer) {
-        executor.execute {
-            when (val resource = repository.search(expression)) {
-                is Resource.Success -> {
-                    consumer.consume(resource.data, null)
-                }
-
-                is Resource.Error -> {
-                    consumer.consume(null, resource.message)
-                }
+    override fun search(expression: String): Flow<Pair<ArrayList<Track>?, String?>> {
+        return repository.search(expression).map { result ->
+            when (result) {
+                is Resource.Success -> Pair(result.data, null)
+                is Resource.Error -> Pair(null, result.message)
             }
         }
     }

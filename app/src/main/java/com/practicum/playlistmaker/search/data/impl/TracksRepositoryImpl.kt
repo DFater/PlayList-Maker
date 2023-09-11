@@ -6,14 +6,17 @@ import com.practicum.playlistmaker.search.data.dto.TracksSearchResponse
 import com.practicum.playlistmaker.search.domain.api.TrackRepository
 import com.practicum.playlistmaker.search.domain.models.Track
 import com.practicum.playlistmaker.search.domain.utils.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class TracksRepositoryImpl(private val networkClient: NetworkClient) : TrackRepository {
 
     override fun search(
         expression: String
-    ): Resource<ArrayList<Track>> {
+    ): Flow<Resource<ArrayList<Track>>> = flow {
         val response = networkClient.doRequest(TracksSearchRequest(expression))
         if (response.resultCode == 200) {
             val list = (response as TracksSearchResponse).results.map {
@@ -32,9 +35,9 @@ class TracksRepositoryImpl(private val networkClient: NetworkClient) : TrackRepo
             }
             val arrayList = ArrayList<Track>()
             arrayList.addAll(list)
-            return Resource.Success(arrayList)
+            emit (Resource.Success(arrayList))
         } else {
-            return Resource.Error("Server error")
+            emit (Resource.Error("Server error"))
         }
     }
 }
