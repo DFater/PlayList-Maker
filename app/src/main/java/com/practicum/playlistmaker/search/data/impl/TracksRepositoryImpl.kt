@@ -14,11 +14,16 @@ import java.util.*
 
 class TracksRepositoryImpl(private val networkClient: NetworkClient) : TrackRepository {
 
+    companion object {
+        private const val SUCCESS_RESULT_CODE = 200
+        private const val ERROR_MESSAGE = "Server error"
+    }
+
     override fun search(
         expression: String
     ): Flow<Resource<ArrayList<Track>>> = flow {
         val response = networkClient.doRequest(TracksSearchRequest(expression))
-        if (response.resultCode == 200) {
+        if (response.resultCode == SUCCESS_RESULT_CODE) {
             val list = (response as TracksSearchResponse).results.map {
                 Track(
                     it.trackId,
@@ -37,7 +42,7 @@ class TracksRepositoryImpl(private val networkClient: NetworkClient) : TrackRepo
             arrayList.addAll(list)
             emit (Resource.Success(arrayList))
         } else {
-            emit (Resource.Error("Server error"))
+            emit(Resource.Error(ERROR_MESSAGE))
         }
     }
 }
