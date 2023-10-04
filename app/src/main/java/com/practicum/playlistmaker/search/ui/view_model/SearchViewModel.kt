@@ -1,15 +1,16 @@
 package com.practicum.playlistmaker.search.ui.view_model
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.practicum.playlistmaker.search.domain.api.HistoryInteractor
 import com.practicum.playlistmaker.search.domain.api.TrackInteractor
 import com.practicum.playlistmaker.search.domain.models.Track
-import com.practicum.playlistmaker.search.ui.SearchActivityState
-import com.practicum.playlistmaker.search.ui.SingleLiveEvent
+import com.practicum.playlistmaker.search.ui.utils.SearchActivityState
+import com.practicum.playlistmaker.search.ui.utils.SingleLiveEvent
+import com.practicum.playlistmaker.search.ui.utils.debounce
+import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val trackInteractor: TrackInteractor,
@@ -31,22 +32,22 @@ class SearchViewModel(
     private var searchTextPresent: String? = null
     private var isClickAllowed = true
 
-    private val handler = Handler(Looper.getMainLooper())
-    private val searchRunnable = Runnable {
-        val searchTextNew = searchTextLast ?: ""
-        search(searchTextNew)
-    }
+    private val onTrackSearchDebounce =
+        debounce<String?>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) {
+            if (it?.isEmpty() == false)
+                search(it)
+        }
 
-    override fun onCleared() {
-        super.onCleared()
-        handler.removeCallbacks(searchRunnable)
-    }
+    private val onTrackClickDebounce =
+        debounce<Boolean>(CLICK_DEBOUNCE_DELAY, viewModelScope, false) {
+            isClickAllowed = it
+        }
 
     private fun clickDebounce(): Boolean {
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+            onTrackClickDebounce(true)
         }
         return current
     }
@@ -56,8 +57,7 @@ class SearchViewModel(
             return
         }
         this.searchTextLast = changedText
-        handler.removeCallbacks(searchRunnable)
-        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+        onTrackSearchDebounce(changedText)
     }
 
     private fun search(searchText: String) {
@@ -67,28 +67,28 @@ class SearchViewModel(
         }
         renderState(SearchActivityState.Loading)
 
-        trackInteractor.search(searchText, object : TrackInteractor.TrackConsumer {
-            override fun consume(foundTracks: ArrayList<Track>?, errorMessage: String?) {
-                val tracks = ArrayList<Track>()
-                if (foundTracks != null) {
-                    tracks.addAll(foundTracks)
-                }
-
-                when {
-                    errorMessage != null -> {
-                        renderState(SearchActivityState.Error)
+        viewModelScope.launch {
+            trackInteractor
+                .search(searchText)
+                .collect {
+                    val tracks = ArrayList<Track>()
+                    if (it.first != null) {
+                        tracks.addAll(it.first!!)
                     }
+                    when {
+                        it.second != null -> {
+                            renderState(SearchActivityState.Error)
+                        }
+                        tracks.isEmpty() -> {
+                            renderState(SearchActivityState.Empty)
+                        }
 
-                    tracks.isEmpty() -> {
-                        renderState(SearchActivityState.Empty)
-                    }
-
-                    else -> {
-                        renderState(SearchActivityState.List(tracks = tracks))
+                        else -> {
+                            renderState(SearchActivityState.List(tracks = tracks))
+                        }
                     }
                 }
             }
-        })
     }
 
 
@@ -100,7 +100,7 @@ class SearchViewModel(
         searchTextPresent = text
         val tracks = getHistoryTrackList()
         if (hasFocus && searchTextPresent?.isEmpty() == true && tracks.size > 0) {
-            handler.removeCallbacks(searchRunnable)
+            onTrackSearchDebounce(searchTextPresent)
             renderState(SearchActivityState.History(tracks))
         } else {
             searchDebounce(searchTextPresent ?: "")
@@ -119,7 +119,7 @@ class SearchViewModel(
     fun onEditFocusChange(hasFocus: Boolean) {
         val tracks = getHistoryTrackList()
         if (hasFocus && searchTextPresent.isNullOrEmpty() && tracks.size > 0) {
-            handler.removeCallbacks(searchRunnable)
+            onTrackSearchDebounce(searchTextPresent)
             renderState(SearchActivityState.History(tracks))
         } else {
             renderState(
