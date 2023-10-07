@@ -38,6 +38,10 @@ class PlayerActivity : AppCompatActivity() {
             render(it)
         }
 
+        viewModel.observeFavourite().observe(this) {
+            renderFavourite(it)
+        }
+
         init(track)
 
         binding?.arrowMediaBack?.setOnClickListener {
@@ -47,6 +51,11 @@ class PlayerActivity : AppCompatActivity() {
         binding?.playButton?.setOnClickListener {
             viewModel?.playBackControl()
         }
+
+        binding?.likeButton?.setOnClickListener {
+            viewModel.onLikeTrackClick()
+        }
+
     }
 
     override fun onPause() {
@@ -80,7 +89,7 @@ class PlayerActivity : AppCompatActivity() {
             this?.timeDurationPlayingTrack?.text = track.trackTime.orEmpty()
             this?.albumNamePlayingTrack?.text = track.albumName.orEmpty()
             this?.countryPlayingTrack?.text = track.country.orEmpty()
-            this?.yearOfReleasePlayingTrack?.text = track.getReleaseYear()
+            this?.yearOfReleasePlayingTrack?.text = track.releaseYear.toString()
             this?.genrePlayingTrack?.text = track.genreName.orEmpty()
         }
         Glide.with(this)
@@ -122,6 +131,14 @@ class PlayerActivity : AppCompatActivity() {
     private fun onGetPausedState(time: String?) {
         setTime(time)
         binding?.playButton?.setImageResource(R.drawable.play)
+    }
+
+    private fun renderFavourite(isFavourite: Boolean) {
+        if (isFavourite) {
+            binding?.likeButton?.setImageResource(R.drawable.like_button_enable)
+        } else {
+            binding?.likeButton?.setImageResource(R.drawable.like_button_disable)
+        }
     }
 
     companion object {
