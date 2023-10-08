@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.media.data
+package com.practicum.playlistmaker.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

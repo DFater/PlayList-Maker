@@ -192,6 +192,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/country"
+                android:layout_marginBottom="@dimen/medium_plus_size"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/left_Vertical_Guideline_For_Track_Info"
                 app:layout_constraintTag="countryInfoTag"
                 app:layout_constraintTop_toBottomOf="@id/genre_info_in_player" />
