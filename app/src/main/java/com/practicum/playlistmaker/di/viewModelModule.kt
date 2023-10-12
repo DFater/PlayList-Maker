@@ -1,6 +1,6 @@
 package com.practicum.playlistmaker.di
 
-import com.practicum.playlistmaker.media.ui.view_model.FavouriteTracksViewModel
+import com.practicum.playlistmaker.media.ui.view_model.FavouritesViewModel
 import com.practicum.playlistmaker.media.ui.view_model.PlaylistsViewModel
 import com.practicum.playlistmaker.player.ui.view_model.PlayerViewModel
 import com.practicum.playlistmaker.search.domain.models.Track
@@ -19,11 +19,11 @@ val viewModelModule = module {
     }
 
     viewModel { (track: Track) ->
-        PlayerViewModel(track, get())
+        PlayerViewModel(track, get(), get(), get())
     }
 
     viewModel {
-        FavouriteTracksViewModel()
+        FavouritesViewModel(get())
     }
 
     viewModel {

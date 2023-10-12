@@ -2,7 +2,6 @@ package com.practicum.playlistmaker.player.ui.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.util.*
 
 data class ParcelableTrack(
     val trackId: Long?,
@@ -11,12 +10,13 @@ data class ParcelableTrack(
     val trackTime: String?,
     val artworkUrl100: String?,
     val albumName: String?,
-    val releaseDate: Date?,
+    val releaseYear: Int?,
     val genreName: String?,
     val country: String?,
-    val previewUrl: String?
+    val previewUrl: String?,
+    val isFavourite: Boolean,
 
-) : Parcelable {
+    ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
@@ -25,13 +25,15 @@ data class ParcelableTrack(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        Date(parcel.readLong()),
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString()
-    )
+        parcel.readString(),
+        parcel.readBoolean(),
 
-    constructor() : this(null, null, null, null, null, null, null, null, null, null)
+        )
+
+    constructor() : this(null, null, null, null, null, null, null, null, null, null, false)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(trackId!!)
@@ -40,10 +42,11 @@ data class ParcelableTrack(
         parcel.writeString(trackTime)
         parcel.writeString(artworkUrl100)
         parcel.writeString(albumName)
-        parcel.writeLong(releaseDate?.time ?: 0)
+        parcel.writeInt(releaseYear ?: 0)
         parcel.writeString(genreName)
         parcel.writeString(country)
         parcel.writeString(previewUrl)
+        parcel.writeBoolean(isFavourite)
     }
 
     override fun describeContents(): Int {

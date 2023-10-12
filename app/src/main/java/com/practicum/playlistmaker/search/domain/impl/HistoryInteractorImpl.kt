@@ -9,22 +9,25 @@ class HistoryInteractorImpl(private val historyRepository: HistoryRepository): H
         return historyRepository.getSearchHistory()
     }
 
-    override fun addTrackToSearchHistory(track: Track) {
-        val tracks = getSearchHistory()
-        val trackInd = tracks.indexOf(track)
-        if (trackInd > -1) {
-            tracks.removeAt(trackInd)
+    override suspend fun addTrackToSearchHistory(track: Track) {
+        historyRepository.getSearchHistorySuspend().collect { result ->
+            val trackIds = ArrayList<Long>(result.map { it.trackId ?: 0 })
+            val trackInd = trackIds.indexOf(track.trackId)
+            if (trackInd > -1) {
+                result.removeAt(trackInd)
+            }
+            if (result.size > MAX_COUNT_HISTORY_TRACK) {
+                result.removeAt(0)
+            }
+            result.add(track)
+            historyRepository.saveSearchHistory(result)
         }
-        if (tracks.size > MAX_COUNT_HISTORY_TRACK) {
-            tracks.removeAt(0)
-        }
-        tracks.add(track)
-        historyRepository.saveSearchHistory(tracks)
     }
 
     override fun clearSearchHistory() {
         historyRepository.clearSearchHistory()
     }
+
     companion object {
         const val MAX_COUNT_HISTORY_TRACK = 9
     }

@@ -150,7 +150,9 @@ class SearchViewModel(
     }
 
     fun addTrackToHistory(track: Track) {
-        historyInteractor.addTrackToSearchHistory(track)
+        viewModelScope.launch {
+            historyInteractor.addTrackToSearchHistory(track)
+        }
     }
 
     private fun getHistoryTrackList(): ArrayList<Track> {

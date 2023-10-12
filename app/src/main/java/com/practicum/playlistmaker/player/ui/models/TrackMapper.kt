@@ -12,10 +12,11 @@ object TrackMapper {
             track.trackTime,
             track.artworkUrl100,
             track.albumName,
-            track.releaseDate,
+            track.releaseYear,
             track.genreName,
             track.country,
-            track.previewUrl
+            track.previewUrl,
+            track.isFavourite
         )
     }
 
@@ -27,10 +28,11 @@ object TrackMapper {
             track.trackTime,
             track.artworkUrl100,
             track.albumName,
-            track.releaseDate,
+            track.releaseYear,
             track.genreName,
             track.country,
-            track.previewUrl!!
+            track.previewUrl!!,
+            track.isFavourite
         )
     }
 }

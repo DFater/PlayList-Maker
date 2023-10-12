@@ -51,7 +51,7 @@
         android:layout_height="@dimen/track_image_size"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp148_margin"
-        android:indeterminateTint="@color/blue_500"
+        android:indeterminateTint="@color/blue_100"
         android:visibility="gone" />
 
     <FrameLayout

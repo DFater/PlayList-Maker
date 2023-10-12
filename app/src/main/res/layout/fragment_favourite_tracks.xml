@@ -3,7 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/colorSecondary">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/track_image_size"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/blue_100"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/messageImage"
@@ -11,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp104_margin"
-        android:src="@drawable/nothing_found" />
+        android:src="@drawable/nothing_found"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/messageText"
@@ -20,5 +30,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/small_size"
-        android:text="@string/empty_media_library" />
+        android:text="@string/empty_media_library"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favouriteTrackList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_after_item"
+        android:scrollbars="vertical"
+        android:visibility="visible"
+        tools:listitem="@layout/track_item" />
+
 </LinearLayout>
