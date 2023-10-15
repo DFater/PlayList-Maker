@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSecondary"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/addButton"
+            style="@style/placeholder_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_after_item"
+            android:text="@string/new_playlist" />
+
+        <ImageView
+            android:id="@+id/messageImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/track_image_size"
+            android:src="@drawable/nothing_found" />
+
+        <TextView
+            android:id="@+id/messageText"
+            style="@style/placeholder_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/small_size"
+            android:text="@string/playlists_not_found" />
+
+    </LinearLayout>
+</FrameLayout>

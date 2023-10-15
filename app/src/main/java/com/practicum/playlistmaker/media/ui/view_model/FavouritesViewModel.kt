@@ -2,7 +2,7 @@ package com.practicum.playlistmaker.media.ui.view_model
 
 import androidx.lifecycle.*
 import com.practicum.playlistmaker.media.domain.api.FavouriteTrackInteractor
-import com.practicum.playlistmaker.media.ui.FavouriteTrackScreenState
+import com.practicum.playlistmaker.media.ui.models.FavouriteTrackScreenState
 import com.practicum.playlistmaker.search.domain.models.Track
 import com.practicum.playlistmaker.search.ui.utils.SingleLiveEvent
 import com.practicum.playlistmaker.search.ui.utils.debounce
@@ -19,12 +19,11 @@ class FavouritesViewModel(private val favouritesInteractor: FavouriteTrackIntera
 
     private var isClickAllowed = true
     private val onTrackClickDebounce =
-        debounce<Boolean>(CLICK_DEBOUNCE_DELAY, viewModelScope, false) {
+        debounce<Boolean>(CLICK_DEBOUNCE_DELAY_MILLIS, viewModelScope, false) {
             isClickAllowed = it
         }
 
-    override fun onResume(owner: LifecycleOwner) {
-        super.onResume(owner)
+    init {
         loadContent()
     }
 
@@ -67,6 +66,6 @@ class FavouritesViewModel(private val favouritesInteractor: FavouriteTrackIntera
     }
 
     companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
+        private const val CLICK_DEBOUNCE_DELAY_MILLIS = 1000L
     }
 }

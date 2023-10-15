@@ -1,7 +1,6 @@
 package com.practicum.playlistmaker
 
 import android.app.Application
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
 import com.practicum.playlistmaker.di.dataModule
 import com.practicum.playlistmaker.di.interactorModule
@@ -12,13 +11,7 @@ import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
-const val PRACTICUM_PREFERENCES = "playlist_maker_preferences"
-
 class App : Application() {
-
-    val sharedPreferences: SharedPreferences by lazy {
-        getSharedPreferences(PRACTICUM_PREFERENCES, MODE_PRIVATE)
-    }
 
     override fun onCreate() {
 

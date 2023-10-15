@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.databinding.FragmentFavouriteTracksBinding
-import com.practicum.playlistmaker.media.ui.FavouriteTrackScreenState
+import com.practicum.playlistmaker.media.ui.models.FavouriteTrackScreenState
 import com.practicum.playlistmaker.media.ui.adapter.FavouriteTrackAdapter
 import com.practicum.playlistmaker.media.ui.view_model.FavouritesViewModel
 import com.practicum.playlistmaker.player.ui.activity.PlayerActivity
