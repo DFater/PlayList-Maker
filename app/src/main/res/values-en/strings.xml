@@ -32,7 +32,4 @@
     <string name="finish">Finish</string>
     <string name="finish_create_playlist">Finish creste playlist</string>
     <string name="cancel">Cancel</string>
-    <string name="added_to_playlist">Added to playlist</string>
-    <string name="already_added">Already added to playlist</string>
-    <string name="add_error">Playlist adedded errore</string>
 </resources>

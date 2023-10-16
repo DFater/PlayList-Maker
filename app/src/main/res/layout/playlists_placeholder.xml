@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_after_item"
+            android:layout_marginTop="@dimen/tiny_size"
             android:text="@string/new_playlist" />
 
         <ImageView

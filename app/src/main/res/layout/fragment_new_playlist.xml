@@ -41,6 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/icon_padding"
+                android:paddingTop="@dimen/small_size"
                 android:text="@string/new_playlist" />
         </LinearLayout>
 
@@ -97,7 +98,7 @@
             android:id="@+id/btCreatePlaylist"
             style="@style/CreatePlaylistButtonStyle"
             android:layout_width="@dimen/null_size"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/track_image_size"
             android:layout_gravity="bottom"
             android:backgroundTint="@color/new_playlist_button_selector"
             android:enabled="false"

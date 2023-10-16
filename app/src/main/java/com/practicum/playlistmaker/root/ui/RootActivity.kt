@@ -27,10 +27,19 @@ class RootActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.newPlaylistFragment -> binding.bottomNavigationView.visibility = View.GONE
-                else -> binding.bottomNavigationView.visibility = View.VISIBLE
+                R.id.newPlaylistFragment -> showBottomNavigationBar(
+                    isVisible = false
+                )
+
+                else -> showBottomNavigationBar(isVisible = true)
             }
 
         }
+    }
+
+    private fun showBottomNavigationBar(isVisible: Boolean) {
+        val viewVisibility = if (isVisible) View.VISIBLE else View.GONE
+        binding.bottomNavigationView.visibility = viewVisibility
+        binding.dividingStrip.visibility = viewVisibility
     }
 }

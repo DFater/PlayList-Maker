@@ -43,7 +43,7 @@
     <style name="upper_bar_text_view">
         <item name="android:layout_gravity">start</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
-        <item name="android:paddingTop">@dimen/small_size</item>
+        <item name="android:paddingEnd">@dimen/small_size</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textSize">@dimen/large_text_size</item>
         <item name="android:textFontWeight">500</item>
