@@ -7,15 +7,15 @@ import com.practicum.playlistmaker.media.domain.api.FavouriteTrackRepository
 import com.practicum.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 class FavouriteTrackRepositoryImpl(
     private val appDatabase: AppDatabase,
     private val trackDbConvertor: TrackDbConvertor,
 ) : FavouriteTrackRepository {
 
-    override fun getFavouriteTracks(): Flow<List<Track>> = flow {
-        val tracks = appDatabase.trackDao().getTracks()
-        emit(mapFromTrackEntity(tracks))
+    override suspend fun getFavouriteTracks(): Flow<List<Track>> {
+        return appDatabase.trackDao().getTracks().map { it.map { trackEntity -> trackDbConvertor.map(trackEntity) } }
     }
 
     override suspend fun getFavouriteState(trackId: Long): Boolean {
@@ -31,7 +31,4 @@ class FavouriteTrackRepositoryImpl(
         appDatabase.trackDao().deleteTrack(trackId)
     }
 
-    private fun mapFromTrackEntity(tracks: List<TrackEntity>): List<Track> {
-        return tracks.map { track -> trackDbConvertor.map(track) }
-    }
 }

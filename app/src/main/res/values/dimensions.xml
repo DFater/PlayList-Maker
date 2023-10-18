@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="null_size">0dp</dimen>
     <dimen name="exceptional_size">1dp</dimen>
     <dimen name="radius_corner">2dp</dimen>
     <dimen name="point_size">4dp</dimen>
@@ -9,11 +10,13 @@
     <dimen name="medium_size">20dp</dimen>
     <dimen name="margin_after_item">24dp</dimen>
     <dimen name="medium_plus_size">28dp</dimen>
+    <dimen name="dp32_margin">32dp</dimen>
     <dimen name="large_margin">40dp</dimen>
     <dimen name="track_image_size">44dp</dimen>
     <dimen name="search_history_large">50dp</dimen>
     <dimen name="placeholder_button_radius">52dp</dimen>
     <dimen name="dp54_margin">54dp</dimen>
+    <dimen name="dp56_margin">56dp</dimen>
     <dimen name="track_layout">60dp</dimen>
     <dimen name="dp104_margin">104dp</dimen>
     <dimen name="dp148_margin">148dp</dimen>

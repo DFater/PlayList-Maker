@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/point_size"
+    android:layout_marginVertical="@dimen/small_size"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivPlaylistGridItem"
+        style="@style/PlaylistGridItemImageView"
+        android:layout_width="@dimen/null_size"
+        android:layout_height="@dimen/null_size"
+        android:background="@drawable/playlist_image_background"
+        android:src="@drawable/no_image_playlist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tvPlaylistGridItemName"
+        style="@style/PlaylistGridItemTextStyle"
+        android:layout_marginTop="@dimen/point_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPlaylistGridItem"
+        tools:text="Название" />
+
+    <TextView
+        android:id="@+id/tvPlaylistGridItemTrackInfo"
+        style="@style/PlaylistGridItemTextStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPlaylistGridItemName"
+        tools:text="0 треков" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
