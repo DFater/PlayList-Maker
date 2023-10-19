@@ -1,7 +1,9 @@
 package com.practicum.playlistmaker.player.ui.activity
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.practicum.playlistmaker.databinding.PlaylistTrackItemBinding
 import com.practicum.playlistmaker.media.domain.models.Playlist
 
 class BottomSheetAdapter(private val items: ArrayList<Playlist>) :
@@ -9,7 +11,10 @@ class BottomSheetAdapter(private val items: ArrayList<Playlist>) :
     var clickListener: PlaylistClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BottomSheetViewHolder {
-        return BottomSheetViewHolder(parent)
+        val binding =
+            PlaylistTrackItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding.vClickable = true
+        return BottomSheetViewHolder(binding)
     }
 
     override fun getItemCount(): Int {

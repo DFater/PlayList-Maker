@@ -12,7 +12,7 @@ data class PlaylistTrackEntity(
     val trackId: Long = 0,
     val trackName: String?,
     val artistName: String?,
-    val trackTime: String?,
+    val trackTimeMillis: Long?,
     val artworkUrl100: String?,
     val collectionName: String?,
     val releaseYear: Int?,

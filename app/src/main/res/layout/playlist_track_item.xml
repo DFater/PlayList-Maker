@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/TrackItemLayoutStyle"
-    android:clickable="true"
-    android:foreground="?attr/selectableItemBackground">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/playlistListItemImage"
-        style="@style/PlaylistListItemImageView"
-        android:background="@drawable/playlist_image_track_background"
-        android:src="@drawable/no_image_playlist"
-        tools:ignore="ContentDescription" />
+    <data>
 
-    <TextView
-        android:id="@+id/playlistListItemName"
-        style="@style/PlaylistListItemNameTextStyle"
-        android:layout_toEndOf="@+id/playlistListItemImage"
-        tools:text="Без названия" />
+        <variable
+            name="vClickable"
+            type="java.lang.Boolean" />
+    </data>
 
-    <TextView
-        android:id="@+id/playlistListItemTrackCount"
-        style="@style/PlaylistListItemTrackCountTextStyle"
-        android:layout_below="@id/playlistListItemName"
-        android:layout_toEndOf="@+id/playlistListItemImage"
-        tools:text="0 треков" />
-</RelativeLayout>
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+        style="@style/TrackItemLayoutStyle"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/playlistListItemImage"
+            style="@style/PlaylistListItemImageView"
+            android:background="@drawable/playlist_image_track_background"
+            android:src="@drawable/no_image_playlist"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/playlistListItemName"
+            style="@style/PlaylistListItemNameTextStyle"
+            android:layout_toEndOf="@+id/playlistListItemImage"
+            tools:text="Без названия" />
+
+        <TextView
+            android:id="@+id/playlistListItemTrackCount"
+            style="@style/PlaylistListItemTrackCountTextStyle"
+            android:layout_below="@id/playlistListItemName"
+            android:layout_toEndOf="@+id/playlistListItemImage"
+            tools:text="0 треков" />
+    </RelativeLayout>
+</layout>

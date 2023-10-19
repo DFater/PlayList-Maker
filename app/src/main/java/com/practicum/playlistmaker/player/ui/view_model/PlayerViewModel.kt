@@ -45,7 +45,7 @@ class PlayerViewModel(
         }
         viewModelScope.launch {
             playlistInteractor
-                .getPlaylists()
+                .getFlowPlaylists()
                 .collect {
                     playlists = it
                 }
@@ -143,12 +143,8 @@ class PlayerViewModel(
     }
 
     fun addTrackToPlaylist(playlist: Playlist) {
-        if (playlist.id == null) {
-            setMode(PlayerScreenMode.Player)
-            setAddProcessStatus(TrackAddProcessStatus.Error(playlist.name))
-        }
         if (playlist.trackList.indexOf(track.trackId) == -1) {
-            addTrackToPlaylist(playlist.id!!, playlist.name)
+            addTrackToPlaylist(playlist.id, playlist.name)
         } else {
             setAddProcessStatus(TrackAddProcessStatus.Exist(playlist.name))
         }

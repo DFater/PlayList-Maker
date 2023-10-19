@@ -42,4 +42,22 @@
     <string name="add_status_added">Добавлено в плейлист %s</string>
     <string name="add_status_exist">Трек уже добавлен в плейлист %s</string>
     <string name="add_status_error">Ошибка добавления в плейлист %s</string>
+    <string name="playlist_statistics">"%1$s · %2$s"</string>
+    <string name="playlist_tracks_empty">В этом плейлисте нет треков</string>
+    <string name="playlist_menu_button">меню плейлиста</string>
+    <string name="playlist_menu_share_button">Поделиться</string>
+    <string name="playlist_menu_edit_button">Редактировать информацию</string>
+    <string name="playlist_menu_delete_button">Удалить плейлист</string>
+    <string name="delete_track_dialog_title">Удалить трек</string>
+    <string name="delete_track_dialog_message">Вы уверены, что хотите удалить трек из плейлиста?</string>
+    <string name="delete_track_dialog_cancel_button">отмена</string>
+    <string name="delete_track_dialog_yes_button">удалить</string>
+    <string name="share_playlist_empty_message">В этом плейлисте нет списка треков, которым можно поделиться</string>
+    <string name="delete_playlist_dialog_title">Удалить плейлист</string>
+    <string name="delete_playlist_dialog_message">Вы уверены, что хотите удалить этот плейлист?</string>
+    <string name="delete_playlist_dialog_cancel_button">отмена</string>
+    <string name="delete_playlist_dialog_yes_button">удалить</string>
+    <string name="button_save_playlist">Сохранить</string>
+    <string name="button_edit_playlist">Редактировать</string>
+
 </resources>

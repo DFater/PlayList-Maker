@@ -16,7 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.databinding.ActivityPlayerBinding
-import com.practicum.playlistmaker.media.ui.fragment.NewPlaylistFragment
+import com.practicum.playlistmaker.media.ui.new_playlist.NewPlaylistFragment
 import com.practicum.playlistmaker.player.ui.models.*
 import com.practicum.playlistmaker.player.ui.view_model.PlayerViewModel
 import com.practicum.playlistmaker.search.domain.models.Track
@@ -120,6 +120,7 @@ class PlayerActivity : AppCompatActivity() {
                         binding.overlay.visibility = View.GONE
                         viewModel.onCancelBottomSheet()
                     }
+
                     else -> {
                         binding.overlay.visibility = View.VISIBLE
                     }
@@ -188,12 +189,14 @@ class PlayerActivity : AppCompatActivity() {
                     status.name
                 )
             )
+
             is TrackAddProcessStatus.Error -> showMessage(
                 getString(
                     R.string.add_status_error,
                     status.name
                 )
             )
+
             is TrackAddProcessStatus.Exist -> showMessage(
                 getString(
                     R.string.add_status_exist,
@@ -209,7 +212,7 @@ class PlayerActivity : AppCompatActivity() {
         with(binding) {
             this.trackNamePlayer.text = track.trackName.orEmpty()
             this.actorNamePlayer.text = track.artistName.orEmpty()
-            this.timeDurationPlayingTrack.text = track.trackTime.orEmpty()
+            this.timeDurationPlayingTrack.text = track.getTrackTime()
             this.albumNamePlayingTrack.text = track.albumName.orEmpty()
             this.countryPlayingTrack.text = track.country.orEmpty()
             this.yearOfReleasePlayingTrack.text = track.releaseYear.toString()
@@ -265,7 +268,7 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun showMessage(message: String) =
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
     companion object {
         const val TRACK = "Track"

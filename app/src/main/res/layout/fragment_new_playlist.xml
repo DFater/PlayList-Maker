@@ -37,6 +37,7 @@
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
+                android:id="@+id/tvPlaylistTitle"
                 style="@style/upper_bar_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,6 +69,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:textAppearance="@style/PlaylistTextAppearance" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,6 +88,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:textAppearance="@style/PlaylistTextAppearance" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,10 +104,7 @@
         <Button
             android:id="@+id/btCreatePlaylist"
             style="@style/CreatePlaylistButtonStyle"
-            android:layout_width="@dimen/null_size"
-            android:layout_height="@dimen/track_image_size"
             android:layout_gravity="bottom"
-            android:backgroundTint="@color/new_playlist_button_selector"
             android:enabled="false"
             android:text="@string/create"
             app:layout_constraintBottom_toBottomOf="parent"

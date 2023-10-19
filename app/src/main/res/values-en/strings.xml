@@ -32,4 +32,19 @@
     <string name="finish">Finish</string>
     <string name="finish_create_playlist">Finish creste playlist</string>
     <string name="cancel">Cancel</string>
+    <string name="playlist_statistics">%1$s · %2$s</string>
+    <string name="playlist_tracks_empty">empty playlist</string>
+    <string name="playlist_menu_button">menu</string>
+    <string name="playlist_menu_share_button">share</string>
+    <string name="playlist_menu_edit_button">change info</string>
+    <string name="playlist_menu_delete_button">delete playlist</string>
+    <string name="delete_track_dialog_title">delete track</string>
+    <string name="delete_track_dialog_message">are u shure?</string>
+    <string name="delete_track_dialog_cancel_button">cancel</string>
+    <string name="delete_track_dialog_yes_button">delete</string>
+    <string name="share_playlist_empty_message">tracks is not here</string>
+    <string name="delete_playlist_dialog_title">delete playlist</string>
+    <string name="delete_playlist_dialog_message">are u sure to delete this playlist?</string>
+    <string name="delete_playlist_dialog_cancel_button">cancel</string>
+    <string name="delete_playlist_dialog_yes_button">delete</string>
 </resources>

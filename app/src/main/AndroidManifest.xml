@@ -20,7 +20,7 @@
         <activity
             android:name=".root.ui.RootActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -33,7 +33,8 @@
         </activity>
         <activity
             android:name=".player.ui.activity.PlayerActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

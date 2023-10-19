@@ -1,7 +1,7 @@
 package com.practicum.playlistmaker.media.domain.models
 
 data class Playlist(
-    var id: Long? = null,
+    var id: Long = 0,
     var name: String? = null,
     var description: String? = null,
     var filePath: String? = null,

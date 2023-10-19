@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSecondary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".media.ui.playlists.PlaylistsFragment">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -28,4 +30,4 @@
         android:layout_marginHorizontal="@dimen/icon_padding"
         android:visibility="visible" />
 
-</LinearLayout>
+</FrameLayout>

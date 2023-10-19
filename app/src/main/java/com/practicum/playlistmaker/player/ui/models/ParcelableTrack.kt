@@ -7,7 +7,7 @@ data class ParcelableTrack(
     val trackId: Long?,
     val trackName: String?,
     val artistName: String?,
-    val trackTime: String?,
+    val trackTimeMillis: Long,
     val artworkUrl100: String?,
     val albumName: String?,
     val releaseYear: Int?,
@@ -22,7 +22,7 @@ data class ParcelableTrack(
         parcel.readLong(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
+        parcel.readLong(),
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
@@ -33,13 +33,13 @@ data class ParcelableTrack(
 
         )
 
-    constructor() : this(null, null, null, null, null, null, null, null, null, null, false)
+    constructor() : this(null, null, null, 0, null, null, null, null, null, null, false)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(trackId!!)
         parcel.writeString(trackName)
         parcel.writeString(artistName)
-        parcel.writeString(trackTime)
+        parcel.writeLong(trackTimeMillis)
         parcel.writeString(artworkUrl100)
         parcel.writeString(albumName)
         parcel.writeInt(releaseYear ?: 0)
