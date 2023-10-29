@@ -12,13 +12,15 @@ import com.practicum.playlistmaker.search.domain.models.Track
 class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val trackImage: ImageView by lazy { itemView.findViewById(R.id.track_image) }
     private val trackName: TextView by lazy { itemView.findViewById(R.id.track_name) }
-    private val actorsName: TextView by lazy { itemView.findViewById(R.id.actors_name) }
-    private val trackDuration: TextView by lazy { itemView.findViewById(R.id.track_duration) }
+    private val trackInfo: TextView by lazy { itemView.findViewById(R.id.track_info) }
 
     fun bind(model: Track) {
         trackName.text = model.trackName
-        actorsName.text = model.artistName
-        trackDuration.text = model.getTrackTime()
+        trackInfo.text = itemView.context.getString(
+            R.string.playlist_statistics,
+            model.artistName,
+            model.getTrackTime()
+        )
         Glide.with(itemView)
             .load(model.artworkUrl100)
             .placeholder(R.drawable.no_image)

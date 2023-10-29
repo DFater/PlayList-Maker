@@ -81,7 +81,8 @@ class PlaylistInfoViewModel(
 
     private fun getTrackCount(): Int = trackListLiveData.value?.size ?: 0
 
-    private fun getPlaylistTimeMillis(): Long = trackListLiveData.value?.sumOf { it.trackTimeMillis ?: 0 } ?: 0
+    private fun getPlaylistTimeMillis(): Long =
+        trackListLiveData.value?.sumOf { it.trackTimeMillis ?: 0 } ?: 0
 
     private fun clickDebounce(): Boolean {
         val current = isClickAllowed
@@ -145,7 +146,8 @@ class PlaylistInfoViewModel(
 
     fun showPlaylistEdit() {
         if (clickDebounce() && stateLiveData.value is PlaylistInfoScreenState.Content) {
-            showPlaylistEditTrigger.value = (stateLiveData.value as PlaylistInfoScreenState.Content).data
+            showPlaylistEditTrigger.value =
+                (stateLiveData.value as PlaylistInfoScreenState.Content).data
         }
     }
 

@@ -117,7 +117,7 @@
             android:id="@+id/rvPlaylistTrackList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/large_margin"
+            android:layout_marginTop="@dimen/margin_after_item"
             android:scrollbars="vertical"
             android:visibility="visible"
             tools:itemCount="2"

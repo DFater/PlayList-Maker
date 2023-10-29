@@ -28,7 +28,7 @@ class TrackListBottomSheetAdapter(private var items: ArrayList<Track>) : Recycle
     fun addItems(values: List<Track>) {
         this.items.clear()
         if (values.isNotEmpty()) {
-            this.items.addAll(values)
+            this.items.addAll(values.reversed())
         }
         this.notifyDataSetChanged()
     }

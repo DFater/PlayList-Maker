@@ -3,12 +3,12 @@ package com.practicum.playlistmaker.media.data.impl
 import com.practicum.playlistmaker.db.AppDatabase
 import com.practicum.playlistmaker.media.data.PlaylistDbConvertor
 import com.practicum.playlistmaker.media.data.PlaylistTrackDbConvertor
-import com.practicum.playlistmaker.media.data.TrackDbConvertor
 import com.practicum.playlistmaker.media.domain.api.PlaylistRepository
 import com.practicum.playlistmaker.media.domain.models.Playlist
 import com.practicum.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.lang.Exception
 
 
 class PlaylistRepositoryImpl(
@@ -41,10 +41,8 @@ class PlaylistRepositoryImpl(
 
     override suspend fun getPlaylistById(id: Long): Playlist? {
         val playlistEntity = appDatabase.playlistDao().getPlaylistById(id)
-        return if (playlistEntity != null) {
-            playlistDbConvertor.map(playlistEntity)
-        } else {
-            null
+        return playlistEntity?.let {
+            playlistDbConvertor.map(it)
         }
     }
 
@@ -93,23 +91,16 @@ class PlaylistRepositoryImpl(
         })
     }
 
-    override suspend fun getPlaylistTracks(): List<Track> {
-        return appDatabase.playlistTrackDao().getPlaylistTracks()
+    override suspend fun getPlaylistTracksByTrackIdList(playlistIds: List<Long>): List<Track> {
+        val playlist = appDatabase.playlistTrackDao().getPlaylistTracks()
+        return playlist
+            .filter { it.trackId in playlistIds }
             .map { playlistTrackEntity -> playlistTrackDbConvertor.map(playlistTrackEntity) }
-    }
-
-    override suspend fun getPlaylistTracksByTrackIdList(trackIdList: List<Long>): List<Track> {
-        return if (trackIdList.isEmpty())
-            listOf()
-        else {
-            val allPlaylistTracks = getPlaylistTracks()
-            allPlaylistTracks.filter { trackIdList.indexOf(it.trackId) > -1 }
-        }
     }
 
     private suspend fun isUnusedPlaylistTrack(trackId: Long): Boolean {
         val playlists =
-            getPlaylists().filter { playlist -> playlist.trackList.indexOf(trackId) > -1 }
+            getPlaylists().filter { playlist -> playlist.trackList.contains(trackId) }
         return playlists.isEmpty()
     }
 }

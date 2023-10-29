@@ -26,31 +26,14 @@
         tools:text="Smells Like Teen Spirit" />
 
     <TextView
-        android:id="@+id/actors_name"
+        android:id="@+id/track_info"
         style="@style/actors_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/track_name"
-        android:layout_toEndOf="@+id/track_image"
-        tools:text="Nirvana" />
-
-    <TextView
-        android:id="@+id/track_point"
-        style="@style/point_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/track_name"
-        android:layout_toEndOf="@+id/actors_name"
-        app:drawableEndCompat="@drawable/point" />
-
-    <TextView
-        android:id="@+id/track_duration"
-        style="@style/track_duration_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/track_name"
-        android:layout_toEndOf="@+id/track_point"
-        tools:text="5:01" />
+        android:layout_below="@id/track_name"
+        android:layout_toEndOf = "@+id/track_image"
+        android:layout_toStartOf = "@+id/track_arrow"
+        android:text="@string/playlist_statistics" />
 
     <ImageView
         android:id="@+id/track_arrow"
