@@ -244,7 +244,8 @@ class PlaylistInfoFragment : Fragment() {
     }
 
     private fun sharePlaylist() {
-        if (!viewModel.onSharePlaylist()) {
+        if (!viewModel.
+            onSharePlaylist()) {
             showMessage(getString(R.string.share_playlist_empty_message))
         }
     }

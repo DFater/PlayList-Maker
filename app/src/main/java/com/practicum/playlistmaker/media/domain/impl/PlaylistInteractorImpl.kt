@@ -46,7 +46,7 @@ class PlaylistInteractorImpl(
         var trackListInfo = ""
         trackList.forEachIndexed { index, track -> trackListInfo += "\n" + (index + 1).toString() + "." + track.artistName + " - " + track.albumName }
 
-        return playlist.name + "\n" + playlist.description + "\n" + playlist.trackCount + " " + getTrackCountNoun(
+        return playlist.name + "\n" + (playlist.description ?: "") + "\n" + playlist.trackCount + " " + getTrackCountNoun(
             playlist.trackCount
         ) + trackListInfo
     }
