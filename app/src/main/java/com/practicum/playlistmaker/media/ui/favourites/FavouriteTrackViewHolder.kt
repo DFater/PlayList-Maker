@@ -17,16 +17,15 @@ class FavouriteTrackViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
 ) {
 
     private val trackNameView: TextView by lazy { itemView.findViewById(R.id.track_name) }
-    private val trackInfo: TextView by lazy { itemView.findViewById(R.id.track_info) }
+    private val trackActorView: TextView by lazy { itemView.findViewById(R.id.actors_name) }
+    private val trackTimeDurView: TextView by lazy { itemView.findViewById(R.id.track_duration) }
     private val trackImageView: ImageView by lazy { itemView.findViewById(R.id.track_image) }
 
     fun bind(model: Track) {
         trackNameView.text = model.trackName
-        trackInfo.text = itemView.context.getString(
-            R.string.playlist_statistics,
-            model.artistName,
-            model.getTrackTime()
-        )
+        trackActorView.text = model.artistName
+        trackTimeDurView.text = model.getTrackTime()
+
         Glide.with(itemView)
             .load(model.artworkUrl100)
             .placeholder(R.drawable.placeholder)

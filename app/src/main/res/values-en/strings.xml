@@ -32,7 +32,6 @@
     <string name="finish">Finish</string>
     <string name="finish_create_playlist">Finish creste playlist</string>
     <string name="cancel">Cancel</string>
-    <string name="playlist_statistics">%1$s · %2$s</string>
     <string name="playlist_tracks_empty">empty playlist</string>
     <string name="playlist_menu_button">menu</string>
     <string name="playlist_menu_share_button">share</string>

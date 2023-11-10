@@ -72,10 +72,10 @@
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_marginStart">@dimen/tiny_size</item>
         <item name="android:layout_marginTop">@dimen/icon_padding</item>
-        <item name="android:singleLine">true</item>
         <item name="android:layout_marginEnd">@dimen/small_size</item>
         <item name="android:textSize">@dimen/medium_text_size</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="track_name_media_player">
@@ -90,21 +90,19 @@
     <style name="actors_name_text_view">
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginStart">@dimen/tiny_size</item>
-        <item name="android:layout_marginEnd">@dimen/small_size</item>
-        <item name="android:layout_marginTop">@dimen/exceptional_size</item>
-        <item name="android:layout_marginBottom">@dimen/icon_padding</item>
+        <item name="android:paddingTop">@dimen/exceptional_size</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:maxLines">1</item>
-        <item name="android:singleLine">true</item>
         <item name="android:textColor">?attr/colorPrimaryDark</item>
         <item name="android:textFontWeight">400</item>
         <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="point_text_view">
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginStart">@dimen/point_size</item>
-        <item name="android:layout_marginTop">@dimen/exceptional_size</item>
+        <item name="android:paddingTop">@dimen/radius_corner</item>
         <item name="android:layout_marginBottom">@dimen/icon_padding</item>
     </style>
 
