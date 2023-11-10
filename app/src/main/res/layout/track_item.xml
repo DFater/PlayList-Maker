@@ -40,7 +40,7 @@
             <TextView
                 android:id="@+id/actors_name"
                 style="@style/actors_name_text_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="fill_horizontal"
                 android:layout_weight="1"
@@ -50,7 +50,7 @@
             <TextView
                 android:id="@+id/track_point"
                 style="@style/point_text_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="fill_horizontal"
                 android:layout_weight="0"
@@ -60,11 +60,12 @@
             <TextView
                 android:id="@+id/track_duration"
                 style="@style/track_duration_text_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="fill_horizontal"
                 android:layout_marginEnd="@dimen/small_size"
                 android:layout_weight="0"
+                android:lines="1"
                 android:ellipsize="end"
                 tools:text="5:01" />
 
