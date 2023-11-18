@@ -16,6 +16,7 @@ import com.practicum.playlistmaker.setting.domain.api.SettingsInteractor
 import com.practicum.playlistmaker.setting.domain.impl.SettingsInteractorImpl
 import com.practicum.playlistmaker.sharing.domain.api.SharingInteractor
 import com.practicum.playlistmaker.sharing.domain.impl.SharingInteractorImpl
+import com.practicum.playlistmaker.utils.QUALIFIER_IMAGE_DIRECTORY
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -45,10 +46,10 @@ val interactorModule = module {
     }
 
     single<PlaylistInteractor> {
-        PlaylistInteractorImpl(get())
+        PlaylistInteractorImpl(get(), get())
     }
 
     single<LocalStorageInteractor> {
-        LocalStorageInteractorImpl(get(named("imageDirectory")))
+        LocalStorageInteractorImpl(get(named(QUALIFIER_IMAGE_DIRECTORY)))
     }
 }

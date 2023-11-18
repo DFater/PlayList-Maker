@@ -7,12 +7,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "playlist_track")
 data class PlaylistTrackEntity(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(typeAffinity = INTEGER)
+    val id: Long = 0,
     val trackId: Long = 0,
     val trackName: String?,
     val artistName: String?,
-    val trackTime: String?,
+    val trackTimeMillis: Long?,
     val artworkUrl100: String?,
     val collectionName: String?,
     val releaseYear: Int?,

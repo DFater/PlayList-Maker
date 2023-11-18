@@ -4,9 +4,8 @@ import com.practicum.playlistmaker.media.domain.models.Playlist
 
 sealed interface NewPlaylistScreenResult {
 
-    object None : NewPlaylistScreenResult
-
     object Canceled : NewPlaylistScreenResult
 
     data class Created(val content: Playlist) : NewPlaylistScreenResult
+
 }

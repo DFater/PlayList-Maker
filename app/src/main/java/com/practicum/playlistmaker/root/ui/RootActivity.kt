@@ -27,10 +27,10 @@ class RootActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.newPlaylistFragment -> showBottomNavigationBar(
+                R.id.newPlaylistFragment, R.id.newPlaylistEditFragment -> showBottomNavigationBar(
                     isVisible = false
                 )
-
+                R.id.playlistInfoFragment -> showBottomNavigationBar(isVisible = false)
                 else -> showBottomNavigationBar(isVisible = true)
             }
 

@@ -13,11 +13,11 @@ data class TrackEntity(
     val trackId: Long?,
     val trackName: String?,
     val artistName: String?,
-    val trackTime: String?,
+    val trackTimeMillis: Long?,
     val artworkUrl100: String?,
     val collectionName: String?,
     val releaseDate: Int?,
     val primaryGenreName: String?,
     val country: String?,
-    val previewUrl: String
+    val previewUrl: String?
 )

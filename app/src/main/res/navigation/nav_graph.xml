@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_mediaLibraryFragment_to_newPlaylistFragment"
             app:destination="@id/newPlaylistFragment" />
+        <action
+            android:id="@+id/action_mediaLibraryFragment_to_playlistInfoFragment"
+            app:destination="@id/playlistInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -38,10 +41,33 @@
         android:label="PlayerActivity" />
     <fragment
         android:id="@+id/favouritesFragment"
-        android:name="com.practicum.playlistmaker.media.ui.fragment.FavouriteTrackFragment"
+        android:name="com.practicum.playlistmaker.media.ui.favourites.FavouriteTrackFragment"
         android:label="FavouritesFragment" />
     <fragment
         android:id="@+id/newPlaylistFragment"
-        android:name="com.practicum.playlistmaker.media.ui.fragment.NewPlaylistFragment"
+        android:name="com.practicum.playlistmaker.media.ui.new_playlist.NewPlaylistFragment"
         android:label="NewPlaylistFragment" />
+    <fragment
+        android:id="@+id/playlistInfoFragment"
+        android:name="com.practicum.playlistmaker.media.ui.playlist_info.PlaylistInfoFragment"
+        android:label="PlaylistInfoFragment">
+        <argument
+            android:name="playlist_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_playlistInfoFragment_to_playerActivity"
+            app:destination="@id/playerActivity" />
+        <action
+            android:id="@+id/action_playlistInfoFragment_to_newPlaylistEditFragment"
+            app:destination="@id/newPlaylistEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPlaylistEditFragment"
+        android:name="com.practicum.playlistmaker.media.ui.new_playlist.NewPlaylistEditFragment"
+        android:label="NewPlaylistEditFragment"
+        tools:layout="@layout/fragment_new_playlist">
+        <argument
+            android:name="playlist"
+            app:argType="com.practicum.playlistmaker.media.ui.models.ParcelablePlaylist" />
+    </fragment>
 </navigation>

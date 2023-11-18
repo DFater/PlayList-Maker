@@ -4,6 +4,8 @@ import androidx.lifecycle.*
 import com.practicum.playlistmaker.media.domain.api.PlaylistInteractor
 import com.practicum.playlistmaker.media.domain.models.Playlist
 import com.practicum.playlistmaker.media.ui.models.PlaylistsScreenState
+import com.practicum.playlistmaker.search.ui.utils.SingleLiveEvent
+import com.practicum.playlistmaker.search.ui.utils.debounce
 import kotlinx.coroutines.launch
 
 class PlaylistsViewModel(private val playlistInteractor: PlaylistInteractor) : ViewModel(),
@@ -11,19 +13,23 @@ class PlaylistsViewModel(private val playlistInteractor: PlaylistInteractor) : V
     private val stateLiveData = MutableLiveData<PlaylistsScreenState>()
     fun observeState(): LiveData<PlaylistsScreenState> = stateLiveData
 
+    private val showPlaylistDetailsTrigger = SingleLiveEvent<Long>()
+    fun getShowPlaylistDetailsTrigger(): LiveData<Long> = showPlaylistDetailsTrigger
+
+    private var isClickAllowed = true
+    private val onPlaylistClickDebounce =
+        debounce<Boolean>(CLICK_DEBOUNCE_DELAY_MILLIS, viewModelScope, false) {
+            isClickAllowed = it
+        }
+
     init {
         loadContent()
-    }
-
-    override fun onResume(owner: LifecycleOwner) {
-        super.onResume(owner)
-        //  loadContent()
     }
 
     private fun loadContent() {
         viewModelScope.launch {
             playlistInteractor
-                .getPlaylists()
+                .getFlowPlaylists()
                 .collect {
                     processResult(it)
                 }
@@ -40,5 +46,24 @@ class PlaylistsViewModel(private val playlistInteractor: PlaylistInteractor) : V
 
     private fun setState(state: PlaylistsScreenState) {
         stateLiveData.postValue(state)
+    }
+
+    private fun playClickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            onPlaylistClickDebounce(true)
+        }
+        return current
+    }
+
+    fun showPlaylistDetails(playlistId: Long) {
+        if (playClickDebounce()) {
+            showPlaylistDetailsTrigger.value = playlistId
+        }
+    }
+
+    companion object {
+        private const val CLICK_DEBOUNCE_DELAY_MILLIS = 1000L
     }
 }

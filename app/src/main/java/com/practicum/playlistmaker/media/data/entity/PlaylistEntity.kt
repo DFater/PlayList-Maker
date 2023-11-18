@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class PlaylistEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(typeAffinity = INTEGER)
-    val id: Long? = null,
+    val id: Long,
     val name: String?,
     val description: String?,
     val filePath: String?,
