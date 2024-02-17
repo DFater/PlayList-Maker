@@ -1,29 +1,43 @@
-# Practicum Vacancy 
+# PlayList Maker 
 
-Проект представляет собой небольшое приложение для поиска работы,
-использующее [API сервиса HeadHunter](https://github.com/hhru/api). Приложение предоставляет следующую функциональность:
+Проект представляет собой небольшое приложение для поиска треков и создания плейлистов,
+использующее [API сервиса HeadHunter]([https://github.com/hhru/api](https://developer.apple.com). Приложение предоставляет следующую функциональность:
 
-- Поиск вакансий
+- Поиск треков
 
-  <img src="https://github.com/DFater/Practicum-Vacancy/assets/118625726/f2670831-a4f5-413b-96b9-24eeae5221a5" width="250"/>
+  <img src="https://github.com/DFater/PlayList-Maker/assets/118625726/e092bcb8-b4a4-4844-b646-6b91da4a902e" width="250"/>
 
-- Указание фильтров для поиска
+  <img src="https://github.com/DFater/PlayList-Maker/assets/118625726/1ebd4448-05f7-4d29-b57b-928b86c92660" width="250"/>
 
-  <img src="https://github.com/DFater/Practicum-Vacancy/assets/118625726/bd7a1ca4-1f2d-4232-b6ee-e7e6b91473d9" width="250"/>
+- Плеер
 
-  <img src="https://github.com/DFater/Practicum-Vacancy/assets/118625726/480b5b62-59d8-4c1a-9ca4-4915e0e3613d" width="250"/>
+  <img src="https://github.com/DFater/PlayList-Maker/assets/118625726/856ac227-0ab5-4888-904d-a0b7cd198a60" width="250"/>
 
-- Просмотр деталей отдельной вакансии
+- "Избранные" треки
 
-  <img src="https://github.com/DFater/Practicum-Vacancy/assets/118625726/88b3efb3-652c-4269-9c05-f8005d736e71" width="250"/>
+  <img src="https://github.com/DFater/PlayList-Maker/assets/118625726/b7d05a30-5a25-4335-9eb8-fb9348340d28" width="250"/>
 
-- И добавление вакансий в список "Избранного"
+- Настройки приложения
 
-  <img src="https://github.com/DFater/Practicum-Vacancy/assets/118625726/0a8a7002-ffa8-404b-be30-16ead55a4c3c" width="250"/>
+  <img src="https://github.com/DFater/PlayList-Maker/assets/118625726/1fad3039-dbb7-4dfc-a75d-3c3ca94724ac" width="250"/>
 
-- Экран с возможностью просмотра похожих вакансий
+- Экран плейлистов пользователя
 
-  <img src="https://github.com/DFater/Practicum-Vacancy/assets/118625726/c457bf34-3f5a-4977-a588-7fe71fcdefde" width="250"/>
+  <img src="https://github.com/DFater/PlayList-Maker/assets/118625726/9407b964-89b6-4410-9e33-8993aa392bb8" width="250"/>
+
+- Экран создания плейлиста
+
+  <img src="https://github.com/DFater/PlayList-Maker/assets/118625726/e38625f1-5c70-4d9f-84ed-4b57f8d2ff9f" width="250"/>
+
+- Добавление трека в плейлист
+
+  <img src="https://github.com/DFater/PlayList-Maker/assets/118625726/d1a52ace-5a2c-4410-9874-a349c2a3bd56" width="250"/>
+
+- Взаимодействие с плейлистом
+
+  <img src="https://github.com/DFater/PlayList-Maker/assets/118625726/9d6d116f-8077-4c86-b418-ba439083b15d" width="250"/>
+
+  <img src="https://github.com/DFater/PlayList-Maker/assets/118625726/7ae36f9d-19cf-4b2f-b879-16ca8a6366c8" width="250"/>
 
 ## Главный экран - экран поиска вакансий
 
